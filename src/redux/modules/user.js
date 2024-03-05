@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import userAPI from "apis/userAPI";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 export const _registerUser = createAsyncThunk(
   "user/register",
@@ -19,7 +21,10 @@ export const _loginUser = createAsyncThunk(
   async (userInfo, thunkAPI) => {
     try {
       const { data } = await userAPI.login(userInfo);
-      return thunkAPI.fulfillWithValue(data);
+      const { id, exp } = jwtDecode(data.token);
+      Cookies.set("token", data.token, { expires: exp * 1000 });
+
+      return thunkAPI.fulfillWithValue({ id });
     } catch (error) {
       const errorMEssage = error.response.data.message;
       return thunkAPI.rejectWithValue(errorMEssage);
@@ -53,7 +58,7 @@ const userSlice = createSlice({
         state.status = "loading";
       })
       .addCase(_loginUser.fulfilled, (state, action) => {
-        //토큰 저장
+        state.user = action.payload;
         state.status = "succeeded";
       })
       .addCase(_loginUser.rejected, (state, action) => {

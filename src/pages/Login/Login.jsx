@@ -2,11 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { _loginUser } from "../../redux/modules/user";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const { status, error, user } = useSelector((state) => state.user);
 
+  console.log(user);
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(_loginUser({ id: "test33", password: "test33" }));
