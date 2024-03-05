@@ -1,10 +1,18 @@
+import userAPI from "apis/userAPI";
 import React from "react";
 import styled from "styled-components";
 
 const Signup = () => {
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("submit");
+
+    try {
+      const data = await userAPI.register({ id: "", password: "test" });
+      console.log(data, data.data);
+    } catch (error) {
+      console.log(error, error.response.data);
+    }
   };
   return (
     <SignupLayout>
