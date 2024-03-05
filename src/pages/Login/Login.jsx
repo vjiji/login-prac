@@ -1,41 +1,102 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { _loginUser } from "../../redux/modules/user";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useInput } from "hooks";
+import { useSelector } from "react-redux";
+import { _loginUser, _registerUser } from "../../redux/modules/user";
+import { Modal } from "common/Modal";
+import { Link } from "react-router-dom";
+import useLogin from "./useLogin";
 
 const Login = () => {
-  const dispatch = useDispatch();
-  const { status, error, user } = useSelector((state) => state.user);
+  const [id, onChangeIdHandler] = useInput();
+  const [password, onChangePassWordHandler] = useInput();
+  const { status } = useSelector((state) => state.user);
 
-  console.log(user);
+  const {
+    isLoginPage,
+    showModal,
+    modalmessage,
+    dispatch,
+    handleModalOpen,
+    handleModalButtonClick,
+  } = useLogin();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(_loginUser({ id: "test33", password: "test33" }));
+    isLoginPage
+      ? dispatch(_loginUser({ id, password }))
+      : dispatch(_registerUser({ id, password }));
   };
 
+  useEffect(() => {
+    handleModalOpen();
+  }, [status]);
+
   return (
-    <LoginLayout>
-      <form onSubmit={handleSubmit}>
-        아이디: <input />
-        비밀번호: <input />
-        <button type="submit">로그인</button>
-      </form>
-      <Test>
-        <Link to={"/signup"}>회원가입</Link>
-      </Test>
-    </LoginLayout>
+    <SignupLayout>
+      <p>{isLoginPage ? "로그인" : "회원가입"} 페이지</p>
+      <FormBox onSubmit={handleSubmit}>
+        <InputBox>
+          <p>아이디</p>
+          <input
+            type="text"
+            name="id"
+            value={id}
+            onChange={onChangeIdHandler}
+          />
+        </InputBox>
+        <InputBox>
+          <p>비밀번호</p>
+          <input
+            type="text"
+            name="password"
+            value={password}
+            onChange={onChangePassWordHandler}
+          />
+        </InputBox>
+        <button type="submit" disabled={status === "loading"}>
+          {isLoginPage ? "로그인" : "회원가입"}
+        </button>
+      </FormBox>
+      {showModal && (
+        <Modal handleClose={handleModalButtonClick}>
+          <ModalContent>
+            <p>{modalmessage}</p>
+            <button onClick={handleModalButtonClick}>확인</button>
+          </ModalContent>
+        </Modal>
+      )}
+      {isLoginPage && <Link to={"/signup"}>회원가입</Link>}
+    </SignupLayout>
   );
 };
 
 export default Login;
 
-const LoginLayout = styled.div`
+const SignupLayout = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 50px;
 `;
 
-const Test = styled.div`
-  display: inline-block;
+const FormBox = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const InputBox = styled.div`
+  display: flex;
+`;
+
+const ModalContent = styled.div`
+  padding: 24px;
+  border-radius: 12px;
+  background-color: #fff;
+  width: 300px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 2;
 `;
