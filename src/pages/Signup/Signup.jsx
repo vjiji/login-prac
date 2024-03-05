@@ -1,14 +1,18 @@
 import userAPI from "apis/userAPI";
 import React from "react";
 import styled from "styled-components";
+import { useInput } from "hooks";
 
 const Signup = () => {
+  const [id, onChangeIdHandler] = useInput();
+  const [password, onChangePassWordHandler] = useInput();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("submit");
 
     try {
-      const data = await userAPI.register({ id: "", password: "test" });
+      const data = await userAPI.register({ id, password });
       console.log(data, data.data);
     } catch (error) {
       console.log(error, error.response.data);
@@ -20,11 +24,21 @@ const Signup = () => {
       <FormBox onSubmit={handleSubmit}>
         <InputBox>
           <p>아이디</p>
-          <input />
+          <input
+            type="text"
+            name="id"
+            value={id}
+            onChange={onChangeIdHandler}
+          />
         </InputBox>
         <InputBox>
           <p>비밀번호</p>
-          <input />
+          <input
+            type="text"
+            name="password"
+            value={password}
+            onChange={onChangePassWordHandler}
+          />
         </InputBox>
         <button>회원가입</button>
       </FormBox>
