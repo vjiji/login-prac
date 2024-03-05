@@ -1,23 +1,21 @@
-import userAPI from "apis/userAPI";
 import React from "react";
 import styled from "styled-components";
 import { useInput } from "hooks";
+import { useDispatch, useSelector } from "react-redux";
+import { _registerUser } from "../../redux/modules/user";
 
 const Signup = () => {
   const [id, onChangeIdHandler] = useInput();
   const [password, onChangePassWordHandler] = useInput();
+  const { status, error } = useSelector((state) => state.user);
 
-  const handleSubmit = async (e) => {
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("submit");
-
-    try {
-      const data = await userAPI.register({ id, password });
-      console.log(data, data.data);
-    } catch (error) {
-      console.log(error, error.response.data);
-    }
+    dispatch(_registerUser({ id, password }));
   };
+
   return (
     <SignupLayout>
       <p>회원가입 페이지</p>
@@ -40,7 +38,9 @@ const Signup = () => {
             onChange={onChangePassWordHandler}
           />
         </InputBox>
-        <button>회원가입</button>
+        <button type="submit" disabled={status === "loading"}>
+          회원가입
+        </button>
       </FormBox>
     </SignupLayout>
   );
