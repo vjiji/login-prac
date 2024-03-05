@@ -1,20 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useInput } from "hooks";
 import { useDispatch, useSelector } from "react-redux";
 import { _registerUser } from "../../redux/modules/user";
+import { Modal } from "common/Modal";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [id, onChangeIdHandler] = useInput();
   const [password, onChangePassWordHandler] = useInput();
+  const [showModal, setShowModal] = useState(false);
+
   const { status, error } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(_registerUser({ id, password }));
   };
+
+  useEffect(() => {
+    if (status === "failed" || status === "succeeded") {
+      setShowModal(true);
+    }
+  }, [status]);
 
   return (
     <SignupLayout>
@@ -42,6 +53,22 @@ const Signup = () => {
           회원가입
         </button>
       </FormBox>
+      {showModal && (
+        <Modal handleClose={() => setShowModal(false)}>
+          <ModalContent>
+            <p>{status === "succeeded" ? "회원가입 완료!" : error}</p>
+            <button
+              onClick={() =>
+                status === "succeeded"
+                  ? navigate("/login")
+                  : setShowModal(false)
+              }
+            >
+              확인
+            </button>
+          </ModalContent>
+        </Modal>
+      )}
     </SignupLayout>
   );
 };
@@ -62,4 +89,16 @@ const FormBox = styled.form`
 
 const InputBox = styled.div`
   display: flex;
+`;
+
+const ModalContent = styled.div`
+  padding: 24px;
+  border-radius: 12px;
+  background-color: #fff;
+  width: 300px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 2;
 `;
