@@ -1,15 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { _loginUser } from "../../redux/modules/user";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(_loginUser({ id: "test33", password: "test33" }));
+  };
+
   return (
     <LoginLayout>
-      <div>
+      <form onSubmit={handleSubmit}>
         아이디: <input />
         비밀번호: <input />
-        <button>로그인</button>
-      </div>
+        <button type="submit">로그인</button>
+      </form>
       <Test>
         <Link to={"/signup"}>회원가입</Link>
       </Test>

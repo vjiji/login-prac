@@ -1,7 +1,8 @@
 const { default: defaultInstance } = require("./instance");
 
 const userAPI = {
-  register: (user) => defaultInstance.post("/register", user),
+  register: (userInfo) => defaultInstance.post("/register", userInfo),
+  login: (userInfo) => defaultInstance.post("/login", userInfo),
 };
 
 export default userAPI;

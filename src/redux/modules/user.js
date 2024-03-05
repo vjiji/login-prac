@@ -14,6 +14,19 @@ export const _registerUser = createAsyncThunk(
   }
 );
 
+export const _loginUser = createAsyncThunk(
+  "user/login",
+  async (userInfo, thunkAPI) => {
+    try {
+      const { data } = await userAPI.login(userInfo);
+      return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
+      const errorMEssage = error.response.data.message;
+      return thunkAPI.rejectWithValue(errorMEssage);
+    }
+  }
+);
+
 const initialState = {
   user: {},
   status: "idle",
@@ -33,6 +46,17 @@ const userSlice = createSlice({
         state.status = "succeeded";
       })
       .addCase(_registerUser.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
+      .addCase(_loginUser.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(_loginUser.fulfilled, (state, action) => {
+        //토큰 저장
+        state.status = "succeeded";
+      })
+      .addCase(_loginUser.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
       });
