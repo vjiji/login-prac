@@ -8,7 +8,8 @@ import {
   resetUserState,
 } from "../../redux/modules/user";
 import styled from "styled-components";
-import { Modal } from "common/Modal";
+import Modal from "common/Modal";
+import Button from "common/Button";
 
 const Header = () => {
   const { user, status, error } = useSelector((state) => state.user);
@@ -43,9 +44,9 @@ const Header = () => {
       <HeaderLayout>
         <ProfileBox>
           {userId && <p>{`${userId} 님, 반가워요!`}</p>}
-          <button className="login-button" onClick={handleProfileButtonClick}>
+          <Button size="small" onClick={handleProfileButtonClick}>
             {userId ? "logout" : "login"}
-          </button>
+          </Button>
         </ProfileBox>
       </HeaderLayout>
       {status === "failed" && (
@@ -53,7 +54,9 @@ const Header = () => {
           <ModalContent>
             <p>{error}</p>
             <p>다시 로그인 해주세요.</p>
-            <button onClick={handleModalClose}>확인</button>
+            <Button size="large" theme="worning" onClick={handleModalClose}>
+              확인
+            </Button>
           </ModalContent>
         </Modal>
       )}
@@ -68,19 +71,6 @@ const HeaderLayout = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-
-  .login-button {
-    width: 64px;
-    background-color: #a3aabe;
-    border: none;
-    padding: 4px 8px;
-    border-radius: 4px;
-    cursor: pointer;
-
-    &:hover {
-      border: 2px solid #786f80;
-    }
-  }
 `;
 
 const ProfileBox = styled.div`

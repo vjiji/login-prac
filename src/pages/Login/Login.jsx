@@ -4,7 +4,8 @@ import { useDispatch } from "react-redux";
 import { useInput } from "hooks";
 import useLogin from "./useLogin";
 import { _loginUser, _registerUser } from "../../redux/modules/user";
-import { Modal } from "common/Modal";
+import Modal from "common/Modal";
+import Button from "common/Button";
 import { Link } from "react-router-dom";
 
 const Login = () => {
@@ -13,6 +14,7 @@ const Login = () => {
   const {
     isLoginPage,
     isLoading,
+    isFailed,
     showModal,
     modalmessage,
     handleModalButtonClick,
@@ -48,15 +50,15 @@ const Login = () => {
         <InputBox>
           <p>비밀번호</p>
           <input
-            type="text"
+            type="password"
             name="password"
             value={password}
             onChange={onChangePassWordHandler}
           />
         </InputBox>
-        <button type="submit" disabled={isLoading}>
+        <Button size="large" type="submit" disabled={isLoading}>
           {isLoginPage ? "로그인" : "회원가입"}
-        </button>
+        </Button>
         {isLoginPage && (
           <LinkStyles to={"/signup"}>
             아이디가 없다면 <span>회원가입</span> 해주세요
@@ -67,7 +69,14 @@ const Login = () => {
         <Modal handleClose={handleModalButtonClick}>
           <ModalContent>
             <p>{modalmessage}</p>
-            <button onClick={handleModalButtonClick}>확인</button>
+            <Button
+              onClick={handleModalButtonClick}
+              size="large"
+              theme={isFailed ? "worning" : "primary"}
+              className={isFailed && "outlined"}
+            >
+              확인
+            </Button>
           </ModalContent>
         </Modal>
       )}

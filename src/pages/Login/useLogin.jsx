@@ -8,13 +8,13 @@ const useLogin = () => {
   const { status, error } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   useEffect(() => {
     handleModalOpen();
   }, [status]);
 
   const { pathname } = useLocation();
   const isLoginPage = pathname === "/login";
-  const isLoading = status === "loading";
 
   const handleModalOpen = () => {
     status === "failed" || status === "succeeded"
@@ -36,7 +36,8 @@ const useLogin = () => {
 
   return {
     isLoginPage,
-    isLoading,
+    isLoading: status === "loading",
+    isFailed: status === "failed",
     showModal,
     modalmessage,
     handleModalButtonClick,
