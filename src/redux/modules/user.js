@@ -39,7 +39,6 @@ export const _getUserInfo = createAsyncThunk(
       await userAPI.getUser();
       const token = Cookies.get("token");
       const { id } = jwtDecode(token);
-      console.log(id);
       return thunkAPI.fulfillWithValue({ id });
     } catch (error) {
       console.log(error);
