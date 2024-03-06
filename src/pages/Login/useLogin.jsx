@@ -1,17 +1,20 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
-import { setStatus } from "../../redux/modules/user";
+import { resetUserState } from "../../redux/modules/user";
 
 const useLogin = () => {
   const [showModal, setShowModal] = useState(false);
   const { status, error } = useSelector((state) => state.user);
-
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+
+  useEffect(() => {
+    handleModalOpen();
+  }, [status]);
 
   const { pathname } = useLocation();
   const isLoginPage = pathname === "/login";
+  const isLoading = status === "loading";
 
   const handleModalOpen = () => {
     status === "failed" || status === "succeeded"
@@ -23,8 +26,7 @@ const useLogin = () => {
     if (status === "succeeded") {
       isLoginPage ? navigate("/") : navigate("/login");
     }
-    setShowModal(false);
-    dispatch(setStatus("idle"));
+    if (!(status === "succeeded" && isLoginPage)) dispatch(resetUserState());
   };
 
   const modalmessage =
@@ -34,10 +36,9 @@ const useLogin = () => {
 
   return {
     isLoginPage,
+    isLoading,
     showModal,
     modalmessage,
-    dispatch,
-    handleModalOpen,
     handleModalButtonClick,
   };
 };

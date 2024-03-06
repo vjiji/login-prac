@@ -32,6 +32,23 @@ export const _loginUser = createAsyncThunk(
   }
 );
 
+export const _getUserInfo = createAsyncThunk(
+  "user/getUser",
+  async (_, thunkAPI) => {
+    try {
+      await userAPI.getUser();
+      const token = Cookies.get("token");
+      const { id } = jwtDecode(token);
+      console.log(id);
+      return thunkAPI.fulfillWithValue({ id });
+    } catch (error) {
+      console.log(error);
+      const errorMEssage = error.response.data.message;
+      return thunkAPI.rejectWithValue(errorMEssage);
+    }
+  }
+);
+
 const initialState = {
   user: {},
   status: "idle",
@@ -42,8 +59,8 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setStatus: (state, action) => {
-      state.status = action.payload;
+    resetUserState: (state) => {
+      state = initialState;
     },
   },
   extraReducers: (builder) => {
@@ -68,9 +85,20 @@ const userSlice = createSlice({
       .addCase(_loginUser.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
+      })
+      .addCase(_getUserInfo.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(_getUserInfo.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.user = action.payload;
+      })
+      .addCase(_getUserInfo.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
       });
   },
 });
 
-export const { setStatus } = userSlice.actions;
+export const { resetUserState } = userSlice.actions;
 export default userSlice.reducer;

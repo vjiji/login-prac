@@ -1,25 +1,29 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
 import { useInput } from "hooks";
-import { useSelector } from "react-redux";
+import useLogin from "./useLogin";
 import { _loginUser, _registerUser } from "../../redux/modules/user";
 import { Modal } from "common/Modal";
 import { Link } from "react-router-dom";
-import useLogin from "./useLogin";
 
 const Login = () => {
-  const [id, onChangeIdHandler] = useInput();
-  const [password, onChangePassWordHandler] = useInput();
-  const { status } = useSelector((state) => state.user);
-
+  const [id, onChangeIdHandler, resetIdValue] = useInput();
+  const [password, onChangePassWordHandler, resetPasswordValue] = useInput();
   const {
     isLoginPage,
+    isLoading,
     showModal,
     modalmessage,
-    dispatch,
-    handleModalOpen,
     handleModalButtonClick,
   } = useLogin();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    resetIdValue();
+    resetPasswordValue();
+  }, [isLoginPage]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,10 +31,6 @@ const Login = () => {
       ? dispatch(_loginUser({ id, password }))
       : dispatch(_registerUser({ id, password }));
   };
-
-  useEffect(() => {
-    handleModalOpen();
-  }, [status]);
 
   return (
     <SignupLayout>
@@ -54,7 +54,7 @@ const Login = () => {
             onChange={onChangePassWordHandler}
           />
         </InputBox>
-        <button type="submit" disabled={status === "loading"}>
+        <button type="submit" disabled={isLoading}>
           {isLoginPage ? "로그인" : "회원가입"}
         </button>
       </FormBox>

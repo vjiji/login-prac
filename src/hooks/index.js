@@ -1,3 +1,4 @@
 import useInput from "./useInput";
+import useUserModal from "./useUserModal";
 
-export { useInput };
+export { useInput, useUserModal };
