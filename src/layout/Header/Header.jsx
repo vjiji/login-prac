@@ -29,10 +29,17 @@ const Header = () => {
   };
 
   return (
-    <HeaderLayout>
-      <button onClick={() => navigate("/login")}>
-        {user.id ? "logout" : "login"}
-      </button>
+    <>
+      <HeaderLayout>
+        <ProfileBox>
+          {user.id && <p>{`${user.id} 님, 반가워요!`}</p>}
+          <div style={{ width: "64px" }}>
+            <button className="login-button" onClick={() => navigate("/login")}>
+              {user.id ? "logout" : "login"}
+            </button>
+          </div>
+        </ProfileBox>
+      </HeaderLayout>
       {status === "failed" && (
         <Modal handleClose={handleModalClose}>
           <ModalContent>
@@ -42,16 +49,37 @@ const Header = () => {
           </ModalContent>
         </Modal>
       )}
-    </HeaderLayout>
+    </>
   );
 };
 
 export default Header;
 
 const HeaderLayout = styled.div`
-  height: 100px;
-  width: 100%;
-  background: gray;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  .login-button {
+    width: 60px;
+
+    background-color: #a3aabe;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      border: 2px solid #786f80;
+    }
+  }
+`;
+
+const ProfileBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
 `;
 
 const ModalContent = styled.div`
