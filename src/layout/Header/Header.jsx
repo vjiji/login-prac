@@ -14,9 +14,10 @@ const Header = () => {
   const { user, status, error } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userId = user.id;
 
   useEffect(() => {
-    if (!user.id) {
+    if (!userId) {
       const token = Cookies.get("token");
       token ? dispatch(_getUserInfo()) : navigate("/login");
     }
@@ -28,13 +29,22 @@ const Header = () => {
     navigate("/login");
   };
 
+  const logout = () => {
+    Cookies.remove("token");
+    window.location.reload();
+  };
+
+  const handleProfileButtonClick = () => {
+    userId ? logout() : navigate("/login");
+  };
+
   return (
     <>
       <HeaderLayout>
         <ProfileBox>
-          {user.id && <p>{`${user.id} 님, 반가워요!`}</p>}
-          <button className="login-button" onClick={() => navigate("/login")}>
-            {user.id ? "logout" : "login"}
+          {userId && <p>{`${userId} 님, 반가워요!`}</p>}
+          <button className="login-button" onClick={handleProfileButtonClick}>
+            {userId ? "logout" : "login"}
           </button>
         </ProfileBox>
       </HeaderLayout>
