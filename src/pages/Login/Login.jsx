@@ -33,8 +33,8 @@ const Login = () => {
   };
 
   return (
-    <SignupLayout>
-      <p>{isLoginPage ? "로그인" : "회원가입"} 페이지</p>
+    <LoginLayout>
+      <p className="login--title">{isLoginPage ? "로그인" : "회원가입"}</p>
       <FormBox onSubmit={handleSubmit}>
         <InputBox>
           <p>아이디</p>
@@ -57,6 +57,11 @@ const Login = () => {
         <button type="submit" disabled={isLoading}>
           {isLoginPage ? "로그인" : "회원가입"}
         </button>
+        {isLoginPage && (
+          <LinkStyles to={"/signup"}>
+            아이디가 없다면 <span>회원가입</span> 해주세요
+          </LinkStyles>
+        )}
       </FormBox>
       {showModal && (
         <Modal handleClose={handleModalButtonClick}>
@@ -66,27 +71,68 @@ const Login = () => {
           </ModalContent>
         </Modal>
       )}
-      {isLoginPage && <Link to={"/signup"}>회원가입</Link>}
-    </SignupLayout>
+    </LoginLayout>
   );
 };
 
 export default Login;
 
-const SignupLayout = styled.div`
+const LoginLayout = styled.div`
+  height: 280px;
+  padding: 20px;
+  margin: 50px auto;
   display: flex;
   flex-direction: column;
   gap: 50px;
+  width: fit-content;
+  border: 2px solid #a3aabe;
+  border-radius: 4px;
+
+  .login--title {
+    font-weight: 500;
+  }
 `;
 
 const FormBox = styled.form`
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  button {
+    height: 40px;
+    margin-top: 30px;
+    background-color: #a3aabe;
+    border: none;
+    padding: 8px 0;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      border: 2px solid #786f80;
+    }
+  }
 `;
 
 const InputBox = styled.div`
   display: flex;
+  align-items: center;
+  gap: 20px;
+
+  p {
+    width: 120px;
+  }
+`;
+
+const LinkStyles = styled(Link)`
+  color: #000;
+  text-decoration: none;
+  margin-top: 10px;
+
+  span {
+    color: #0000ff;
+    font-weight: 500;
+    text-decoration: underline;
+  }
 `;
 
 const ModalContent = styled.div`

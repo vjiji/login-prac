@@ -33,11 +33,9 @@ const Header = () => {
       <HeaderLayout>
         <ProfileBox>
           {user.id && <p>{`${user.id} 님, 반가워요!`}</p>}
-          <div style={{ width: "64px" }}>
-            <button className="login-button" onClick={() => navigate("/login")}>
-              {user.id ? "logout" : "login"}
-            </button>
-          </div>
+          <button className="login-button" onClick={() => navigate("/login")}>
+            {user.id ? "logout" : "login"}
+          </button>
         </ProfileBox>
       </HeaderLayout>
       {status === "failed" && (
@@ -62,8 +60,7 @@ const HeaderLayout = styled.div`
   justify-content: flex-end;
 
   .login-button {
-    width: 60px;
-
+    width: 64px;
     background-color: #a3aabe;
     border: none;
     padding: 4px 8px;
