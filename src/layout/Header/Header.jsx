@@ -16,7 +16,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!user?.id) {
+    if (!user.id) {
       const token = Cookies.get("token");
       token ? dispatch(_getUserInfo()) : navigate("/login");
     }

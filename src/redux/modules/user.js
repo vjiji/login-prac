@@ -60,7 +60,8 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     resetUserState: (state) => {
-      state = initialState;
+      state.error = initialState.error;
+      state.status = initialState.status;
     },
   },
   extraReducers: (builder) => {
