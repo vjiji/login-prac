@@ -44,7 +44,11 @@ const Header = () => {
       <HeaderLayout>
         <ProfileBox>
           {userId && <p>{`${userId} 님, 반가워요!`}</p>}
-          <Button size="small" onClick={handleProfileButtonClick}>
+          <Button
+            theme="secondary"
+            size="small"
+            onClick={handleProfileButtonClick}
+          >
             {userId ? "logout" : "login"}
           </Button>
         </ProfileBox>
@@ -88,5 +92,6 @@ const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   z-index: 2;
 `;
