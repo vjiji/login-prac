@@ -5,7 +5,7 @@ import { resetUserState } from "../../redux/modules/user";
 
 const useLogin = () => {
   const [showModal, setShowModal] = useState(false);
-  const { status, error } = useSelector((state) => state.user);
+  const { status, user, error } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -33,6 +33,10 @@ const useLogin = () => {
     status === "failed"
       ? error
       : `${isLoginPage ? "로그인" : "회원가입"} 성공!`;
+
+  useEffect(() => {
+    if (user.id) navigate(-1);
+  });
 
   return {
     isLoginPage,
