@@ -1,9 +1,9 @@
-const { default: defaultInstance } = require("./instance");
+import { userInstance } from "./instance";
 
 const userAPI = {
-  register: (userInfo) => defaultInstance.post("/register", userInfo),
-  login: (userInfo) => defaultInstance.post("/login", userInfo),
-  getUser: () => defaultInstance.get("/user"),
+  register: (userInfo) => userInstance.post("/register", userInfo),
+  login: (userInfo) => userInstance.post("/login", userInfo),
+  getUser: () => userInstance.get("/user"),
 };
 
 export default userAPI;

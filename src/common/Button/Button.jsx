@@ -5,7 +5,7 @@ import {
   BUTTON_HOVER_COLORS,
   BUTTON_WIDTH,
   COLORS,
-} from "styles/styleConstant";
+} from "constants/styleConstant";
 
 const Button = ({
   onClick,
@@ -17,7 +17,6 @@ const Button = ({
 }) => {
   const { size = "medium", theme = "primary" } = styleProps;
 
-  console.log(theme);
   return (
     <ButtonStyles
       size={size}
@@ -42,6 +41,7 @@ const ButtonStyles = styled.button`
   padding: 4px 8px;
   border-radius: 4px;
   cursor: pointer;
+  ${({ size }) => size === "large" && `font-size: 16px;`}
 
   &:hover {
     border: 2px solid ${({ theme }) => BUTTON_HOVER_COLORS[theme]};

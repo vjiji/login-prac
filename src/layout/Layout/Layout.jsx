@@ -6,7 +6,9 @@ const Layout = () => {
   return (
     <Container>
       <Header />
-      <Outlet />
+      <BodyLayout>
+        <Outlet />
+      </BodyLayout>
     </Container>
   );
 };
@@ -18,4 +20,8 @@ const Container = styled.div`
   min-width: 800px;
   margin: 0 auto;
   padding: 0 20px;
+`;
+
+const BodyLayout = styled.div`
+  margin: 60px 0;
 `;

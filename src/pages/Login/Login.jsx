@@ -56,9 +56,16 @@ const Login = () => {
             onChange={onChangePassWordHandler}
           />
         </InputBox>
-        <Button size="large" type="submit" disabled={isLoading}>
-          {isLoginPage ? "로그인" : "회원가입"}
-        </Button>
+        <ButtonBox>
+          <Button
+            theme="secondary"
+            size="large"
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoginPage ? "로그인" : "회원가입"}
+          </Button>
+        </ButtonBox>
         {isLoginPage && (
           <LinkStyles to={"/signup"}>
             아이디가 없다면 <span>회원가입</span> 해주세요
@@ -72,7 +79,7 @@ const Login = () => {
             <Button
               onClick={handleModalButtonClick}
               size="large"
-              theme={isFailed ? "worning" : "primary"}
+              theme={isFailed ? "worning" : "secondary"}
               className={isFailed && "outlined"}
             >
               확인
@@ -106,20 +113,6 @@ const FormBox = styled.form`
   display: flex;
   flex-direction: column;
   gap: 10px;
-
-  button {
-    height: 40px;
-    margin-top: 30px;
-    background-color: #a3aabe;
-    border: none;
-    padding: 8px 0;
-    border-radius: 4px;
-    cursor: pointer;
-
-    &:hover {
-      border: 2px solid #786f80;
-    }
-  }
 `;
 
 const InputBox = styled.div`
@@ -132,10 +125,15 @@ const InputBox = styled.div`
   }
 `;
 
+const ButtonBox = styled.div`
+  width: fit-content;
+  margin: 30px auto 0;
+`;
+
 const LinkStyles = styled(Link)`
   color: #000;
   text-decoration: none;
-  margin-top: 10px;
+  margin: 10px auto;
 
   span {
     color: #0000ff;
@@ -153,5 +151,6 @@ const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   z-index: 2;
 `;
