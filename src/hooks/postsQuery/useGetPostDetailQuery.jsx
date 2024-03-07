@@ -6,9 +6,12 @@ const getPost = async (id) => {
   return data;
 };
 
-const useGetPostDetailQuery = (id) => {
+const useGetPostDetailQuery = (id, handleOnSuccess) => {
   return useQuery(POSTS_QUERY_KEYS.postDetail(id), () => getPost(id), {
     enabled: !!id,
+    onSuccess: (data) => {
+      handleOnSuccess && handleOnSuccess(data);
+    },
   });
 };
 

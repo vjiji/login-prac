@@ -1,5 +1,5 @@
 import { COLORS, FONT_SIZE } from "constants/styleConstant";
-import useGetPostDetailQuery from "hooks/postsQuery/useGetPostDetailQuery";
+import { useGetPostDetailQuery } from "hooks/postsQuery";
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";

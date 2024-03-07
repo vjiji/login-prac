@@ -1,35 +1,37 @@
 import Button from "common/Button";
-import { useInput } from "hooks";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import { COLORS, FONT_SIZE } from "constants/styleConstant";
-import { useAddPostQuery } from "hooks/postsQuery";
+import { useInput } from "hooks";
+import { useEditPostQuery, useGetPostDetailQuery } from "hooks/postsQuery";
+import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import styled from "styled-components";
 
-const AddPost = () => {
-  const { id } = useSelector((state) => state.user.user);
-  const navigate = useNavigate();
-
+const EditPost = () => {
   const [title, handleTitleInputChange, resetTitle] = useInput();
   const [content, handleContentInputChange, resetContent] = useInput();
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-  const handleAddPostsSuccess = (data) => {
-    const { id } = data;
+  const handleGetPostSuccess = (data) => {
+    resetTitle(data.title);
+    resetContent(data.content);
+  };
+  const { data, error } = useGetPostDetailQuery(id, handleGetPostSuccess);
+
+  const handleEditPostsSuccess = () => {
     resetTitle();
     resetContent();
     navigate(`/posts/${id}`);
   };
 
-  const { mutate: createPost } = useAddPostQuery(handleAddPostsSuccess);
+  const { mutate: editPost } = useEditPostQuery(handleEditPostsSuccess);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createPost({
-      title,
-      content,
-      writer: id,
-    });
+    editPost({ id, title, content });
   };
+
+  if (!data) return <div>...loading</div>;
 
   return (
     <FormStyle onSubmit={handleSubmit}>
@@ -55,7 +57,7 @@ const AddPost = () => {
   );
 };
 
-export default AddPost;
+export default EditPost;
 
 const FormStyle = styled.form`
   max-width: 600px;
@@ -78,7 +80,7 @@ const Title = styled.input`
 `;
 
 const Content = styled.textarea`
-  height: 400px;
+  height: 30vh;
   padding: 10px 4px;
   border: 1px solid ${COLORS.secondary};
   border-radius: 4px;

@@ -7,6 +7,7 @@ import store from "./redux/config/configStore";
 import { QueryClient, QueryClientProvider } from "react-query";
 import AddPost from "pages/AddPost";
 import PostDetail from "pages/PostDetail";
+import EditPost from "pages/EditPost";
 
 function App() {
   const queryClient = new QueryClient();
@@ -21,7 +22,7 @@ function App() {
               <Route index element={<Main />} />
               <Route path="/newpost" element={<AddPost />} />
               <Route path="/posts/:id" element={<PostDetail />} />
-              <Route path="/editpost/:id" element={<AddPost />} />
+              <Route path="/editpost/:id" element={<EditPost />} />
             </Route>
           </Routes>
         </BrowserRouter>
