@@ -23,5 +23,5 @@ const Container = styled.div`
 `;
 
 const BodyLayout = styled.div`
-  margin-top: 60px;
+  margin: 60px 0;
 `;
