@@ -35,7 +35,7 @@ const useLogin = () => {
       : `${isLoginPage ? "로그인" : "회원가입"} 성공!`;
 
   useEffect(() => {
-    if (user.id) navigate(-1);
+    if (user.id) navigate("/");
   });
 
   return {

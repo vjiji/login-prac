@@ -21,6 +21,7 @@ function App() {
               <Route index element={<Main />} />
               <Route path="/newpost" element={<AddPost />} />
               <Route path="/posts/:id" element={<PostDetail />} />
+              <Route path="/editpost/:id" element={<AddPost />} />
             </Route>
           </Routes>
         </BrowserRouter>

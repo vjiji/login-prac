@@ -47,7 +47,7 @@ const AddPost = () => {
       />
       <ButtonBox>
         <button className="addpost__cancel-button">돌아가기</button>
-        <Button size="large" type="submit">
+        <Button theme="secondary" size="large" type="submit">
           작성완료
         </Button>
       </ButtonBox>
@@ -69,7 +69,7 @@ const FormStyle = styled.form`
 const Title = styled.input`
   padding-bottom: 10px;
   border: none;
-  border-bottom: 1px solid ${COLORS.primary};
+  border-bottom: 1px solid ${COLORS.secondary};
   font-size: ${FONT_SIZE.large};
 
   &:focus {
@@ -80,7 +80,7 @@ const Title = styled.input`
 const Content = styled.textarea`
   height: 30vh;
   padding: 10px 4px;
-  border: 2px solid ${COLORS.primary};
+  border: 1px solid ${COLORS.secondary};
   border-radius: 4px;
   font-size: ${FONT_SIZE.medium};
   resize: none;
