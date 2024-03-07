@@ -5,7 +5,7 @@ import {
   BUTTON_HOVER_COLORS,
   BUTTON_WIDTH,
   COLORS,
-} from "styles/styleConstant";
+} from "constants/styleConstant";
 
 const Button = ({
   onClick,

@@ -1,33 +1,21 @@
-import postsAPI from "apis/postsAPI";
 import Button from "common/Button";
 import { useInput } from "hooks";
-import { useMutation, useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { COLORS, FONT_SIZE } from "styles/styleConstant";
-
-const createPost = async (post) => {
-  const { data } = await postsAPI.createPost(post);
-  return data;
-};
+import { COLORS, FONT_SIZE } from "constants/styleConstant";
+import { useAddPostQuery } from "hooks/postsQuery";
 
 const AddPost = () => {
   const { id } = useSelector((state) => state.user.user);
+  const { mutate: createPost, isLoading, error } = useAddPostQuery();
   const [title, handleTitleInputChange, resetTitle] = useInput();
   const [content, handleContentInputChange, resetContent] = useInput();
   const navigate = useNavigate();
-  //
 
-  const queryClient = useQueryClient();
-  const { mutate } = useMutation(createPost, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("posts");
-    },
-  });
   const handleSubmit = (e) => {
     e.preventDefault();
-    mutate({
+    createPost({
       title,
       content,
       writer: id,

@@ -1,13 +1,7 @@
-import postsAPI from "apis/postsAPI";
-import { useQuery } from "react-query";
+import { useGetPostsQuery } from "hooks/postsQuery";
 
 const Main = () => {
-  const getPost = async () => {
-    const { data } = await postsAPI.getPosts();
-    return data;
-  };
-
-  const { data: posts, error, isLoading } = useQuery("posts", getPost);
+  const { data: posts, error, isLoading } = useGetPostsQuery();
 
   if (isLoading) {
     return <div>로딩중</div>;
