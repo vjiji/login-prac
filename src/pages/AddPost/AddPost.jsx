@@ -8,10 +8,19 @@ import { useAddPostQuery } from "hooks/postsQuery";
 
 const AddPost = () => {
   const { id } = useSelector((state) => state.user.user);
-  const { mutate: createPost, isLoading, error } = useAddPostQuery();
+  const navigate = useNavigate();
+
   const [title, handleTitleInputChange, resetTitle] = useInput();
   const [content, handleContentInputChange, resetContent] = useInput();
-  const navigate = useNavigate();
+
+  const handleAddPostsSuccess = (data) => {
+    const { id } = data;
+    resetTitle();
+    resetContent();
+    navigate(`/posts/${id}`);
+  };
+
+  const { mutate: createPost, error } = useAddPostQuery(handleAddPostsSuccess);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,9 +29,6 @@ const AddPost = () => {
       content,
       writer: id,
     });
-    resetTitle();
-    resetContent();
-    // navigate()
   };
 
   return (

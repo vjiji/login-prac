@@ -7,10 +7,11 @@ const createPost = async (post) => {
   return data;
 };
 
-const useAddPostQuery = () => {
+const useAddPostQuery = (handleOnSuccess) => {
   const queryClient = useQueryClient();
   return useMutation(createPost, {
-    onSuccess: () => {
+    onSuccess: (data) => {
+      handleOnSuccess(data);
       queryClient.invalidateQueries(POSTS_QUERY_KEYS.posts);
     },
   });
