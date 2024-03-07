@@ -1,5 +1,5 @@
 import { COLORS, FONT_SIZE } from "constants/styleConstant";
-import { useGetPostDetailQuery } from "hooks/postsQuery";
+import { useDeletePostQuery, useGetPostDetailQuery } from "hooks/postsQuery";
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -9,8 +9,12 @@ import { formatToYYYYMMDD } from "utils";
 const PostDetail = () => {
   const { id: userId } = useSelector((state) => state.user.user);
   const { id: postId } = useParams();
-  const { data: post, error } = useGetPostDetailQuery(postId);
   const navigate = useNavigate();
+
+  const { data: post, error } = useGetPostDetailQuery(postId);
+
+  const handleDeleteSuccess = () => navigate("/");
+  const { mutate: deletePost } = useDeletePostQuery(handleDeleteSuccess);
 
   if (!post) {
     return <div>...loading</div>;
@@ -21,7 +25,7 @@ const PostDetail = () => {
       {userId === post.writer && (
         <ButtonBox>
           <button onClick={() => navigate(`/editPost/${postId}`)}>수정</button>
-          <button>삭제</button>
+          <button onClick={() => deletePost(postId)}>삭제</button>
         </ButtonBox>
       )}
       <PostDetailLayout>
