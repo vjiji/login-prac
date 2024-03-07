@@ -1,11 +1,12 @@
 export const COLORS = {
-  primary: "#a3aabe",
+  primary: "#0437f2",
+  secondary: "#a3aabe",
   worning: "#ff9d00",
   outlined: "#fff",
 };
 
 export const BUTTON_WIDTH = {
-  large: "194px",
+  large: "192px",
   medium: "128px",
   small: "64px",
 };
