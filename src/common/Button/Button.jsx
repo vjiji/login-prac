@@ -41,6 +41,7 @@ const ButtonStyles = styled.button`
   padding: 4px 8px;
   border-radius: 4px;
   cursor: pointer;
+  ${({ size }) => size === "large" && `font-size: 16px;`}
 
   &:hover {
     border: 2px solid ${({ theme }) => BUTTON_HOVER_COLORS[theme]};
