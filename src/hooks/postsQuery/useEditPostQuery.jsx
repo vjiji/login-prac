@@ -1,6 +1,6 @@
 import postsAPI from "apis/postsAPI";
 import { POSTS_QUERY_KEYS } from "constants/queryKeys";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const updatePost = async (post) => {
   const { data } = await postsAPI.updatePost(post);
@@ -9,7 +9,8 @@ const updatePost = async (post) => {
 
 const useEditPostQuery = (handleOnSuccess) => {
   const queryClient = useQueryClient();
-  return useMutation((post) => updatePost(post), {
+  return useMutation({
+    mutationFn: (post) => updatePost(post),
     onSuccess: (resData) => {
       handleOnSuccess && handleOnSuccess();
       queryClient.invalidateQueries(POSTS_QUERY_KEYS.postDetail(resData.id));

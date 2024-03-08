@@ -42,6 +42,10 @@ const Header = () => {
   return (
     <>
       <HeaderLayout>
+        <div style={{ marginRight: "300px" }}>
+          <button onClick={() => navigate("/")}>home</button>
+          <button onClick={() => navigate("/newpost")}>새 글 작성</button>
+        </div>
         <ProfileBox>
           {userId && <p>{`${userId} 님, 반가워요!`}</p>}
           <Button
