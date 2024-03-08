@@ -1,5 +1,5 @@
 import postsAPI from "apis/postsAPI";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { POSTS_QUERY_KEYS } from "constants/queryKeys";
 
 const getPost = async (id) => {
@@ -7,12 +7,11 @@ const getPost = async (id) => {
   return data;
 };
 
-const useGetPostDetailQuery = (id, handleOnSuccess) => {
-  return useQuery(POSTS_QUERY_KEYS.postDetail(id), () => getPost(id), {
+const useGetPostDetailQuery = (id) => {
+  return useQuery({
+    queryKey: [POSTS_QUERY_KEYS.postDetail(id)],
+    queryFn: () => getPost(id),
     enabled: !!id,
-    onSuccess: (data) => {
-      handleOnSuccess && handleOnSuccess(data);
-    },
   });
 };
 

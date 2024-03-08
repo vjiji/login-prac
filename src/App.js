@@ -4,10 +4,11 @@ import Layout from "layout/Layout";
 import Login from "pages/Login";
 import { Provider } from "react-redux";
 import store from "./redux/config/configStore";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import AddPost from "pages/AddPost";
 import PostDetail from "pages/PostDetail";
 import EditPost from "pages/EditPost";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 function App() {
   const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ function App() {
             </Route>
           </Routes>
         </BrowserRouter>
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </Provider>
   );
