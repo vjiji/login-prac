@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useGetCommentsQuery } from "hooks/commentsQuery";
 import { COLORS, FONT_SIZE } from "constants/styleConstant";
+import AddComment from "../AddComment";
 
 const Comments = () => {
   const { id: postId } = useParams();
@@ -13,8 +14,8 @@ const Comments = () => {
       <CommentBoxWrap>
         {comments &&
           comments.map(({ content, writer, id }) => (
-            <CommentBox>
-              <TextBox id={id}>
+            <CommentBox key={id}>
+              <TextBox>
                 <p className="comments__writer-text">{writer}</p>
                 <p>{content}</p>
               </TextBox>
@@ -22,7 +23,7 @@ const Comments = () => {
             </CommentBox>
           ))}
       </CommentBoxWrap>
-      <div style={{ height: "40px" }}>test</div>
+      <AddComment />
     </CommentsLayout>
   );
 };
@@ -31,7 +32,7 @@ export default Comments;
 
 const CommentsLayout = styled.div`
   grid-column: 2/3;
-  grid-row: 1/3;
+  grid-row: 2/3;
   padding: 20px 10px 0;
   border: 1px solid #ddd;
   border-radius: 12px;
