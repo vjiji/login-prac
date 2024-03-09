@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { formatToYYYYMMDD } from "utils";
 import Comments from "./Comments";
+import Button from "common/Button";
 
 const PostDetail = () => {
   const { id: userId } = useSelector((state) => state.user.user);
@@ -25,8 +26,23 @@ const PostDetail = () => {
     <PostDetailLayout>
       {userId === post.writer && (
         <ButtonBox>
-          <button onClick={() => navigate(`/editPost/${postId}`)}>수정</button>
-          <button onClick={() => deletePost(postId)}>삭제</button>
+          <Button
+            theme="worning"
+            size="small"
+            className="outlined"
+            onClick={() => navigate(`/editPost/${postId}`)}
+            style={{ color: `${COLORS.worning}` }}
+          >
+            수정
+          </Button>
+          <Button
+            theme="secondary"
+            size="small"
+            className="outlined"
+            onClick={() => deletePost(postId)}
+          >
+            삭제
+          </Button>
         </ButtonBox>
       )}
       <PostBox>
@@ -47,26 +63,15 @@ const PostDetailLayout = styled.div`
   display: grid;
   grid-template-columns: 3fr 2fr;
   column-gap: 20px;
-  grid-template-rows: 20px minmax(400px, auto);
+  grid-template-rows: 35px minmax(400px, auto);
 `;
 
 const ButtonBox = styled.div`
   grid-column: 1/2;
   grid-row: 1/2;
-  padding: 0 10px;
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-
-  button {
-    background: none;
-    border: none;
-    cursor: pointer;
-
-    &:hover {
-      font-weight: 600;
-    }
-  }
 `;
 
 const PostBox = styled.div`

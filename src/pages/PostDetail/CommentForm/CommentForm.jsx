@@ -23,8 +23,17 @@ const CommentForm = ({ commentId, setCommentId }) => {
   return (
     <CommentFormLayout onSubmit={handleSubmit}>
       <input value={content} onChange={handleContentChange} />
-      {commentId && <button onClick={handleOnUpdateSuccess}>취소</button>}
-      <Button theme="secondary" size="small" type="submit" className="outlined">
+      {commentId && (
+        <Button
+          theme="secondary"
+          size="small"
+          className="outlined"
+          onClick={handleOnUpdateSuccess}
+        >
+          취소
+        </Button>
+      )}
+      <Button theme="secondary" size="small" type="submit">
         작성
       </Button>
     </CommentFormLayout>

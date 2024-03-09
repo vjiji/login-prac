@@ -10,6 +10,7 @@ import {
 import styled from "styled-components";
 import Modal from "common/Modal";
 import Button from "common/Button";
+import { LuHome } from "react-icons/lu";
 
 const Header = () => {
   const { user, status, error } = useSelector((state) => state.user);
@@ -42,10 +43,10 @@ const Header = () => {
   return (
     <>
       <HeaderLayout>
-        <div style={{ marginRight: "300px" }}>
-          <button onClick={() => navigate("/")}>home</button>
-          <button onClick={() => navigate("/newpost")}>새 글 작성</button>
+        <div className="header__home-icon-box">
+          <LuHome onClick={() => navigate("/")} />
         </div>
+        <h1 onClick={() => navigate("/")}>MY DIARY</h1>
         <ProfileBox>
           {userId && <p>{`${userId} 님, 반가워요!`}</p>}
           <Button
@@ -75,16 +76,32 @@ const Header = () => {
 export default Header;
 
 const HeaderLayout = styled.div`
-  height: 60px;
+  height: 100px;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
+
+  svg {
+    cursor: pointer;
+    font-size: 22px;
+  }
+
+  .header__home-icon-box {
+    width: 300px;
+  }
+
+  h1 {
+    font-weight: 600;
+    cursor: pointer;
+  }
 `;
 
 const ProfileBox = styled.div`
+  width: 300px;
   display: flex;
   align-items: center;
-  gap: 20px;
+  justify-content: flex-end;
+  gap: 10px;
 `;
 
 const ModalContent = styled.div`

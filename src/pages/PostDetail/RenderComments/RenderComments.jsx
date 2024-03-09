@@ -1,9 +1,14 @@
 import React, { memo } from "react";
 import styled from "styled-components";
 import { FONT_SIZE } from "constants/styleConstant";
+import { CiEdit } from "react-icons/ci";
+import { AiOutlineDelete } from "react-icons/ai";
+import { useSelector } from "react-redux";
 
 const RenderComments = memo(
   ({ comments, setEditCommentId, setDeleteCommentId }) => {
+    const { id: userId } = useSelector((state) => state.user.user);
+
     return (
       <>
         <CommentBoxWrap>
@@ -15,10 +20,18 @@ const RenderComments = memo(
                     <p className="comments__writer-text">{writer}</p>
                     <p>{content}</p>
                   </TextBox>
-                  <IconBox>
-                    <button onClick={() => setEditCommentId(id)}>edit</button>
-                    <button onClick={() => setDeleteCommentId(id)}>x</button>
-                  </IconBox>
+                  {writer === userId && (
+                    <IconBox>
+                      <CiEdit
+                        className="comment__edit-icon"
+                        onClick={() => setEditCommentId(id)}
+                      />
+                      <AiOutlineDelete
+                        className="comment__delete-icon"
+                        onClick={() => setDeleteCommentId(id)}
+                      />
+                    </IconBox>
+                  )}
                 </CommentBox>
               );
             })}
@@ -36,12 +49,13 @@ const CommentBoxWrap = styled.div`
 `;
 
 const CommentBox = styled.div`
+  height: 18px;
+  margin-top: 8px;
+  padding: 0 2px 0 4px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-radius: 4px;
-  padding: 0px 2px;
-  margin-top: 8px;
 
   &:hover {
     background: rgba(4, 55, 242, 0.2);
@@ -66,4 +80,20 @@ const TextBox = styled.div`
   }
 `;
 
-const IconBox = styled.div``;
+const IconBox = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  svg {
+    cursor: pointer;
+    &:hover {
+      color: red;
+    }
+  }
+
+  .comment__edit-icon {
+    font-size: 18px;
+  }
+`;
