@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import RenderComments from "../RenderComments";
 import CommentForm from "../CommentForm";
-import CommentsDeleteModal from "../CommentsDeleteModal";
+import { TwoButtonModal } from "common/Modal";
 import useComments from "./useComments";
 import { COLORS } from "constants/styleConstant";
 
@@ -24,7 +24,7 @@ const Comments = () => {
         setDeleteCommentId={setDeleteCommentId}
       />
       <CommentForm commentId={editCommentId} setCommentId={setEditCommentId} />
-      <CommentsDeleteModal
+      <TwoButtonModal
         onModal={deleteCommentId}
         message="댓글을 삭제하시겠어요?"
         handleConfirmButtonClick={handleCommentDelete}

@@ -44,9 +44,13 @@ const Header = () => {
     <>
       <HeaderLayout>
         <div className="header__home-icon-box">
-          <LuHome onClick={() => navigate("/")} />
+          <LuHome
+            onClick={() => (userId ? navigate("/") : navigate("/login"))}
+          />
         </div>
-        <h1 onClick={() => navigate("/")}>MY DIARY</h1>
+        <h1 onClick={() => (userId ? navigate("/") : navigate("/login"))}>
+          MY DIARY
+        </h1>
         <ProfileBox>
           {userId && <p>{`${userId} 님, 반가워요!`}</p>}
           <Button

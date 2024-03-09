@@ -1,27 +1,28 @@
-import { COLORS, FONT_SIZE } from "constants/styleConstant";
-import { useDeletePostQuery, useGetPostDetailQuery } from "hooks/postsQuery";
 import React from "react";
-import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { formatToYYYYMMDD } from "utils";
+import { useNavigate } from "react-router-dom";
 import Comments from "./Comments";
 import Button from "common/Button";
+import { TwoButtonModal } from "common/Modal";
+import usePostDetail from "./usePostDetail";
+import { formatToYYYYMMDD } from "utils";
+import { COLORS, FONT_SIZE } from "constants/styleConstant";
 
 const PostDetail = () => {
-  const { id: userId } = useSelector((state) => state.user.user);
-  const { id: postId } = useParams();
+  const {
+    post,
+    userId,
+    postId,
+    isModalOpen,
+    handleDeletePost,
+    handleModalOpen,
+  } = usePostDetail();
+
   const navigate = useNavigate();
-
-  const { data: post, error } = useGetPostDetailQuery(postId);
-
-  const handleDeleteSuccess = () => navigate("/");
-  const { mutate: deletePost } = useDeletePostQuery(handleDeleteSuccess);
 
   if (!post) {
     return <div>...loading</div>;
   }
-
   return (
     <PostDetailLayout>
       {userId === post.writer && (
@@ -39,7 +40,7 @@ const PostDetail = () => {
             theme="secondary"
             size="small"
             className="outlined"
-            onClick={() => deletePost(postId)}
+            onClick={handleModalOpen}
           >
             삭제
           </Button>
@@ -51,6 +52,12 @@ const PostDetail = () => {
         <p>{post.content}</p>
       </PostBox>
       <Comments />
+      <TwoButtonModal
+        onModal={isModalOpen}
+        message="게시글을 삭제하시겠어요?"
+        handleConfirmButtonClick={handleDeletePost}
+        handleModalClose={handleModalOpen}
+      />
     </PostDetailLayout>
   );
 };

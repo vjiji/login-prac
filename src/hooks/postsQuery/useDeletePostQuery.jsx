@@ -12,6 +12,7 @@ const useDeletePostQuery = (handleOnSuccess) => {
   return useMutation({
     mutationFn: (id) => deletePost(id),
     onSuccess: () => {
+      console.log(handleOnSuccess);
       handleOnSuccess && handleOnSuccess();
       queryClient.invalidateQueries(POSTS_QUERY_KEYS.posts);
     },

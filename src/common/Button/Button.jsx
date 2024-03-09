@@ -18,7 +18,6 @@ const Button = ({
 }) => {
   const { size = "medium", theme = "primary" } = styleProps;
 
-  console.log(style);
   return (
     <ButtonStyles
       size={size}
