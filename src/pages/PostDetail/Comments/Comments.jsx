@@ -1,23 +1,35 @@
 import styled from "styled-components";
-import CommentForm from "../CommentForm";
-import { COLORS } from "constants/styleConstant";
 import RenderComments from "../RenderComments";
+import CommentForm from "../CommentForm";
+import CommentsDeleteModal from "../CommentsDeleteModal";
 import useComments from "./useComments";
+import { COLORS } from "constants/styleConstant";
 
 const Comments = () => {
-  const { postId, comments, commentId, setCommentId, deleteComment } =
-    useComments();
+  const {
+    comments,
+    editCommentId,
+    deleteCommentId,
+    setEditCommentId,
+    setDeleteCommentId,
+    handleCommentDelete,
+  } = useComments();
 
   return (
     <CommentsLayout>
       <h1>Comments</h1>
       <RenderComments
-        postId={postId}
         comments={comments}
-        setCommentId={setCommentId}
-        deleteComment={deleteComment}
+        setEditCommentId={setEditCommentId}
+        setDeleteCommentId={setDeleteCommentId}
       />
-      <CommentForm commentId={commentId} setCommentId={setCommentId} />
+      <CommentForm commentId={editCommentId} setCommentId={setEditCommentId} />
+      <CommentsDeleteModal
+        onModal={deleteCommentId}
+        message="댓글을 삭제하시겠어요?"
+        handleConfirmButtonClick={handleCommentDelete}
+        handleModalClose={() => setDeleteCommentId(null)}
+      />
     </CommentsLayout>
   );
 };

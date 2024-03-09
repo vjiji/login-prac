@@ -1,6 +1,5 @@
-import Button from "common/Button";
-
 import styled from "styled-components";
+import Button from "common/Button";
 import useCommentForm from "./useCommentForm";
 
 const CommentForm = ({ commentId, setCommentId }) => {
@@ -13,6 +12,7 @@ const CommentForm = ({ commentId, setCommentId }) => {
     updateComment,
     handleOnUpdateSuccess,
   } = useCommentForm(commentId, setCommentId);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const comment = { content, writer: userId };

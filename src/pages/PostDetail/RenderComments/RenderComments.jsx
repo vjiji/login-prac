@@ -1,29 +1,29 @@
-import { FONT_SIZE } from "constants/styleConstant";
 import React, { memo } from "react";
 import styled from "styled-components";
+import { FONT_SIZE } from "constants/styleConstant";
 
 const RenderComments = memo(
-  ({ postId, comments, setCommentId, deleteComment }) => {
+  ({ comments, setEditCommentId, setDeleteCommentId }) => {
     return (
-      <CommentBoxWrap>
-        {comments &&
-          comments.map(({ content, writer, id }) => {
-            return (
-              <CommentBox key={id}>
-                <TextBox>
-                  <p className="comments__writer-text">{writer}</p>
-                  <p>{content}</p>
-                </TextBox>
-                <IconBox>
-                  <button onClick={() => setCommentId(id)}>edit</button>
-                  <button onClick={() => deleteComment({ postId, id })}>
-                    x
-                  </button>
-                </IconBox>
-              </CommentBox>
-            );
-          })}
-      </CommentBoxWrap>
+      <>
+        <CommentBoxWrap>
+          {comments &&
+            comments.map(({ content, writer, id }) => {
+              return (
+                <CommentBox key={id}>
+                  <TextBox>
+                    <p className="comments__writer-text">{writer}</p>
+                    <p>{content}</p>
+                  </TextBox>
+                  <IconBox>
+                    <button onClick={() => setEditCommentId(id)}>edit</button>
+                    <button onClick={() => setDeleteCommentId(id)}>x</button>
+                  </IconBox>
+                </CommentBox>
+              );
+            })}
+        </CommentBoxWrap>
+      </>
     );
   }
 );
