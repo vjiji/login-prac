@@ -3,7 +3,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { COMMENTS_QUERY_KEYS } from "constants/queryKeys";
 
 const createComment = async ({ postId, comment }) => {
-  console.log("add");
   const { data } = await commentsAPI.createComment(postId, comment);
   return data;
 };

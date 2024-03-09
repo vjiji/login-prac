@@ -20,7 +20,6 @@ const CommentForm = ({ commentId, setCommentId }) => {
       ? updateComment({ postId, commentId, comment })
       : createComment({ postId, comment });
   };
-  console.log(commentId, "=====");
   return (
     <CommentFormLayout onSubmit={handleSubmit}>
       <input value={content} onChange={handleContentChange} />

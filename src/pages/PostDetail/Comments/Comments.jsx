@@ -5,19 +5,19 @@ import RenderComments from "../RenderComments";
 import useComments from "./useComments";
 
 const Comments = () => {
-  const { comments, commentId, setCommentId } = useComments();
+  const { postId, comments, commentId, setCommentId, deleteComment } =
+    useComments();
 
   return (
     <CommentsLayout>
       <h1>Comments</h1>
-      <RenderComments comments={comments} setCommentId={setCommentId} />
-      <CommentForm
-        commentId={commentId}
+      <RenderComments
+        postId={postId}
+        comments={comments}
         setCommentId={setCommentId}
-        // content={content}
-        // handleContentChange={handleContentChange}
-        // resetContent={resetContent}
+        deleteComment={deleteComment}
       />
+      <CommentForm commentId={commentId} setCommentId={setCommentId} />
     </CommentsLayout>
   );
 };

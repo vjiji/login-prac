@@ -2,23 +2,31 @@ import { FONT_SIZE } from "constants/styleConstant";
 import React, { memo } from "react";
 import styled from "styled-components";
 
-const RenderComments = memo(({ comments, setCommentId }) => {
-  return (
-    <CommentBoxWrap>
-      {comments &&
-        comments.map(({ content, writer, id }) => (
-          <CommentBox key={id}>
-            <TextBox>
-              <p className="comments__writer-text">{writer}</p>
-              <p>{content}</p>
-            </TextBox>
-
-            <button onClick={() => setCommentId(id)}>x</button>
-          </CommentBox>
-        ))}
-    </CommentBoxWrap>
-  );
-});
+const RenderComments = memo(
+  ({ postId, comments, setCommentId, deleteComment }) => {
+    return (
+      <CommentBoxWrap>
+        {comments &&
+          comments.map(({ content, writer, id }) => {
+            return (
+              <CommentBox key={id}>
+                <TextBox>
+                  <p className="comments__writer-text">{writer}</p>
+                  <p>{content}</p>
+                </TextBox>
+                <IconBox>
+                  <button onClick={() => setCommentId(id)}>edit</button>
+                  <button onClick={() => deleteComment({ postId, id })}>
+                    x
+                  </button>
+                </IconBox>
+              </CommentBox>
+            );
+          })}
+      </CommentBoxWrap>
+    );
+  }
+);
 
 export default RenderComments;
 
@@ -57,3 +65,5 @@ const TextBox = styled.div`
     width: 80px;
   }
 `;
+
+const IconBox = styled.div``;
