@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { formatToYYYYMMDD } from "utils";
+import Comments from "./Comments";
 
 const PostDetail = () => {
   const { id: userId } = useSelector((state) => state.user.user);
@@ -21,35 +22,38 @@ const PostDetail = () => {
   }
 
   return (
-    <Container>
+    <PostDetailLayout>
       {userId === post.writer && (
         <ButtonBox>
           <button onClick={() => navigate(`/editPost/${postId}`)}>수정</button>
           <button onClick={() => deletePost(postId)}>삭제</button>
         </ButtonBox>
       )}
-      <PostDetailLayout>
+      <PostBox>
         <h1>{post.title}</h1>
         <p>{formatToYYYYMMDD(post.createdAt)}</p>
         <p>{post.content}</p>
-      </PostDetailLayout>
-    </Container>
+      </PostBox>
+      <Comments />
+    </PostDetailLayout>
   );
 };
 
 export default PostDetail;
 
-const Container = styled.div`
+const PostDetailLayout = styled.div`
   width: 1000px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  column-gap: 20px;
+  grid-template-rows: 20px minmax(400px, auto);
 `;
+
 const ButtonBox = styled.div`
-  width: 600px;
-  margin: 0 auto;
+  grid-column: 1/2;
+  grid-row: 1/2;
+  padding: 0 10px;
   display: flex;
   justify-content: flex-end;
   gap: 10px;
@@ -65,10 +69,9 @@ const ButtonBox = styled.div`
   }
 `;
 
-const PostDetailLayout = styled.div`
-  width: 600px;
-  min-height: 400px;
-  margin: 0 auto;
+const PostBox = styled.div`
+  grid-column: 1/2;
+  grid-row: 2/3;
   padding: 0 10px;
   border-radius: 2px;
   background-color: #f9f9f9;
