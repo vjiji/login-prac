@@ -7,7 +7,7 @@ const createPost = async (post) => {
   return data;
 };
 
-const useAddPostQuery = (handleOnSuccess) => {
+const useAddPost = (handleOnSuccess) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: createPost,
@@ -18,4 +18,4 @@ const useAddPostQuery = (handleOnSuccess) => {
   });
 };
 
-export default useAddPostQuery;
+export default useAddPost;

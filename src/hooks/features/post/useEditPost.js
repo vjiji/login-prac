@@ -7,7 +7,7 @@ const updatePost = async (post) => {
   return data;
 };
 
-const useEditPostQuery = (handleOnSuccess) => {
+const useEditPost = (handleOnSuccess) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (post) => updatePost(post),
@@ -16,8 +16,6 @@ const useEditPostQuery = (handleOnSuccess) => {
       queryClient.invalidateQueries(POSTS_QUERY_KEYS.postDetail(resData.id));
     },
   });
-
-  return <div>useEditPostQuery</div>;
 };
 
-export default useEditPostQuery;
+export default useEditPost;

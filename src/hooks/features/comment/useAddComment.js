@@ -2,21 +2,21 @@ import commentsAPI from "apis/commentsAPI";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { COMMENTS_QUERY_KEYS } from "constants/queryKeys";
 
-const deleteComment = async ({ postId, commentId }) => {
-  const { data } = await commentsAPI.deleteComment(postId, commentId);
-
+const createComment = async ({ postId, comment }) => {
+  const { data } = await commentsAPI.createComment(postId, comment);
   return data;
 };
 
-const useDeleteCommentQuery = () => {
+const useAddComment = (onSuccess) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: deleteComment,
+    mutationFn: createComment,
     onSuccess: () => {
+      onSuccess();
       queryClient.invalidateQueries(COMMENTS_QUERY_KEYS.comments);
     },
   });
 };
 
-export default useDeleteCommentQuery;
+export default useAddComment;

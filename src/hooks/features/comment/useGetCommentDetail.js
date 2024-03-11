@@ -7,7 +7,7 @@ const getCommentDetail = async (postId, commentId) => {
   return data;
 };
 
-const useGetCommentDetailQuery = (postId, commentId) => {
+const useGetCommentDetail = (postId, commentId) => {
   return useQuery({
     queryKey: [COMMENTS_QUERY_KEYS.commentDetail(commentId)],
     queryFn: () => getCommentDetail(postId, commentId),
@@ -15,4 +15,4 @@ const useGetCommentDetailQuery = (postId, commentId) => {
   });
 };
 
-export default useGetCommentDetailQuery;
+export default useGetCommentDetail;

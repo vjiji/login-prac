@@ -7,7 +7,7 @@ const deletePost = async (id) => {
   return data;
 };
 
-const useDeletePostQuery = (handleOnSuccess) => {
+const useDeletePost = (handleOnSuccess) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (id) => deletePost(id),
@@ -19,4 +19,4 @@ const useDeletePostQuery = (handleOnSuccess) => {
   });
 };
 
-export default useDeletePostQuery;
+export default useDeletePost;

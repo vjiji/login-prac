@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDeletePostQuery, useGetPostDetailQuery } from "hooks/postsQuery";
+import { useDeletePost, useGetPostDetail } from "hooks/features/post";
 
 const usePostDetail = () => {
   const navigate = useNavigate();
   const { id: userId } = useSelector((state) => state.user.user);
   const { id: postId } = useParams();
-  const { data: post } = useGetPostDetailQuery(postId);
+  const { data: post } = useGetPostDetail(postId);
   const [isModalOpen, setIsModalOpen] = useState();
 
   const handleDeleteSuccess = () => navigate("/");
 
-  const { mutate: deletePost } = useDeletePostQuery(handleDeleteSuccess);
+  const { mutate: deletePost } = useDeletePost(handleDeleteSuccess);
 
   const handleDeletePost = () => {
     deletePost(postId);

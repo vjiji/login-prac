@@ -7,8 +7,8 @@ const getPost = async () => {
   return data;
 };
 
-const useGetPostsQuery = () => {
+const useGetPosts = () => {
   return useQuery({ queryKey: [POSTS_QUERY_KEYS.posts], queryFn: getPost });
 };
 
-export default useGetPostsQuery;
+export default useGetPosts;

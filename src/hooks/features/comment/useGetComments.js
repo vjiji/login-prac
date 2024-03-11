@@ -7,7 +7,7 @@ const getComment = async (id) => {
   return data;
 };
 
-const useGetCommentsQuery = (id) => {
+const useGetComments = (id) => {
   return useQuery({
     queryKey: [COMMENTS_QUERY_KEYS.comments],
     queryFn: () => getComment(id),
@@ -15,4 +15,4 @@ const useGetCommentsQuery = (id) => {
   });
 };
 
-export default useGetCommentsQuery;
+export default useGetComments;

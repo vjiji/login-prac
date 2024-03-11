@@ -1,11 +1,11 @@
 import { COLORS, FONT_SIZE } from "constants/styleConstant";
-import { useGetPostsQuery } from "hooks/postsQuery";
+import { useGetPosts } from "hooks/features/post";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { formatToYYYYMMDD } from "utils";
 
 const Main = () => {
-  const { data: posts, error, isLoading } = useGetPostsQuery();
+  const { data: posts, error, isLoading } = useGetPosts();
   const navigate = useNavigate();
 
   if (isLoading) {

@@ -1,7 +1,7 @@
 import Button from "common/Button";
 import { COLORS, FONT_SIZE } from "constants/styleConstant";
 import { useInput } from "hooks/common";
-import { useEditPostQuery, useGetPostDetailQuery } from "hooks/postsQuery";
+import { useEditPost, useGetPostDetail } from "hooks/features/post";
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -20,7 +20,7 @@ const EditPost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { data, error } = useGetPostDetailQuery(id);
+  const { data } = useGetPostDetail(id);
   useEffect(() => {
     if (data) {
       handleGetPostSuccess(data);
@@ -36,7 +36,7 @@ const EditPost = () => {
     navigate(`/posts/${id}`);
   };
 
-  const { mutate: editPost } = useEditPostQuery(handleEditPostsSuccess);
+  const { mutate: editPost } = useEditPost(handleEditPostsSuccess);
 
   const handleSubmit = (e) => {
     e.preventDefault();

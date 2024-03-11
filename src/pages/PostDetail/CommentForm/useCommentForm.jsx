@@ -1,9 +1,9 @@
-import {
-  useAddCommentQuery,
-  useEditCommentQuery,
-  useGetCommentDetailQuery,
-} from "hooks/commentsQuery";
 import { useInput } from "hooks/common";
+import {
+  useAddComment,
+  useEditComment,
+  useGetCommentDetail,
+} from "hooks/features/comment";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -22,7 +22,7 @@ const useCommentForm = (commentId, setCommentId) => {
     setCommentId();
   };
 
-  const { data } = useGetCommentDetailQuery(postId, commentId);
+  const { data } = useGetCommentDetail(postId, commentId);
 
   useEffect(() => {
     if (data) {
@@ -30,9 +30,9 @@ const useCommentForm = (commentId, setCommentId) => {
     }
   }, [data]);
 
-  const { mutate: createComment } = useAddCommentQuery(resetContent);
+  const { mutate: createComment } = useAddComment(resetContent);
 
-  const { mutate: updateComment } = useEditCommentQuery(handleOnUpdateSuccess);
+  const { mutate: updateComment } = useEditComment(handleOnUpdateSuccess);
 
   return {
     content,

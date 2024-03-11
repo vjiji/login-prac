@@ -7,7 +7,7 @@ const getPost = async (id) => {
   return data;
 };
 
-const useGetPostDetailQuery = (id) => {
+const useGetPostDetail = (id) => {
   return useQuery({
     queryKey: [POSTS_QUERY_KEYS.postDetail(id)],
     queryFn: () => getPost(id),
@@ -15,4 +15,4 @@ const useGetPostDetailQuery = (id) => {
   });
 };
 
-export default useGetPostDetailQuery;
+export default useGetPostDetail;

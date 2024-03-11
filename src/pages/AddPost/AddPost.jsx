@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "common/Button";
 import { useInput } from "hooks/common";
-import { useAddPostQuery } from "hooks/postsQuery";
 import { COLORS, FONT_SIZE } from "constants/styleConstant";
+import { useAddPost } from "hooks/features/post";
 
 const AddPost = () => {
   const { id } = useSelector((state) => state.user.user);
@@ -20,7 +20,7 @@ const AddPost = () => {
     navigate(`/posts/${id}`);
   };
 
-  const { mutate: createPost } = useAddPostQuery(handleAddPostsSuccess);
+  const { mutate: createPost } = useAddPost(handleAddPostsSuccess);
 
   const handleSubmit = (e) => {
     e.preventDefault();
