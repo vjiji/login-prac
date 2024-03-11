@@ -10,7 +10,7 @@ const usePostDetail = () => {
   const { data: post } = useGetPostDetail(postId);
   const [isModalOpen, setIsModalOpen] = useState();
 
-  const handleDeleteSuccess = () => navigate("/");
+  const handleDeleteSuccess = () => navigate("/", { replace: true });
 
   const { mutate: deletePost } = useDeletePost(handleDeleteSuccess);
 

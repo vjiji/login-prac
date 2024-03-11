@@ -17,7 +17,7 @@ const AddPost = () => {
 
   const handleAddPostsSuccess = (data) => {
     const { id } = data;
-    navigate(`/posts/${id}`);
+    navigate(`/posts/${id}`, { replace: true });
   };
 
   const { mutate: createPost } = useAddPost(handleAddPostsSuccess);

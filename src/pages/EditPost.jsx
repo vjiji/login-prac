@@ -33,7 +33,7 @@ const EditPost = () => {
   };
 
   const handleEditPostsSuccess = () => {
-    navigate(`/posts/${id}`);
+    navigate(`/posts/${id}`, { replace: true });
   };
 
   const { mutate: editPost } = useEditPost(handleEditPostsSuccess);
