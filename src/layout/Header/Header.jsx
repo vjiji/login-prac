@@ -1,35 +1,15 @@
-import Cookies from "js-cookie";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  _getUserInfo,
-  _loginUser,
-  resetUserState,
-} from "../../redux/modules/user";
 import styled from "styled-components";
-import Modal from "common/Modal";
-import Button from "common/Button";
+import Cookies from "js-cookie";
 import { LuHome } from "react-icons/lu";
+import Button from "common/Button";
+import { _getUserInfo, _loginUser } from "../../redux/modules/user";
 
 const Header = () => {
-  const { user, status, error } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const userId = user.id;
-
-  useEffect(() => {
-    if (!userId) {
-      const token = Cookies.get("token");
-      token ? dispatch(_getUserInfo()) : navigate("/login");
-    }
-  }, [user]);
-
-  const handleModalClose = () => {
-    dispatch(resetUserState());
-    Cookies.remove("token");
-    // navigate("/login");  to do : 회원가입, 로그인 페이지와 연결되어 있음
-  };
 
   const logout = () => {
     Cookies.remove("token");
@@ -62,17 +42,6 @@ const Header = () => {
           </Button>
         </ProfileBox>
       </HeaderLayout>
-      {/* {status === "failed" && (
-        <Modal handleClose={handleModalClose}>
-          <ModalContent>
-            <p>{error}</p>
-            <p>다시 로그인 해주세요.</p>
-            <Button size="large" theme="worning" onClick={handleModalClose}>
-              확인
-            </Button>
-          </ModalContent>
-        </Modal>
-      )} */}
     </>
   );
 };
@@ -106,17 +75,4 @@ const ProfileBox = styled.div`
   align-items: center;
   justify-content: flex-end;
   gap: 10px;
-`;
-
-const ModalContent = styled.div`
-  padding: 24px;
-  border-radius: 12px;
-  background-color: #fff;
-  width: 300px;
-  height: 200px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 2;
 `;

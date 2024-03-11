@@ -1,3 +1,4 @@
+import Auth from "components/common/Auth";
 import Header from "layout/Header";
 import { Outlet } from "react-router-dom";
 import { styled } from "styled-components";
@@ -5,6 +6,7 @@ import { styled } from "styled-components";
 const Layout = () => {
   return (
     <Container>
+      <Auth />
       <Header />
       <BodyLayout>
         <Outlet />

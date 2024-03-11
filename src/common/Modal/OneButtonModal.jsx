@@ -1,12 +1,20 @@
 import Button from "common/Button";
 import ModalBackground from "./ModalBackground";
 
-const OneButtonModal = () => {
+const OneButtonModal = ({ onModal, message, handleButtonClick }) => {
   return (
-    <ModalBackground onModal={onModal} handleModalClose={handleModalClose}>
-      <p>{message}</p>
-      <Button onClick={handleModalClose} theme={"secondary"}>
-        취소
+    <ModalBackground onModal={onModal} handleModalClose={handleButtonClick}>
+      <p
+        style={{
+          textAlign: "center",
+          whiteSpace: "pre-line",
+          lineHeight: "1.5",
+        }}
+      >
+        {message}
+      </p>
+      <Button onClick={handleButtonClick} theme={"secondary"}>
+        확인
       </Button>
     </ModalBackground>
   );

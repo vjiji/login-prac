@@ -1,24 +1,16 @@
 import UserForm from "components/features/user/UserForm";
-import React from "react";
-import { useDispatch } from "react-redux";
-import { _registerUser } from "../../redux/modules/user";
-import styled from "styled-components";
+import useUserFormSubmit from "hooks/features/user/useUserFormSubmit";
+import { useLocation } from "react-router-dom";
 
 const Signup = () => {
-  const dispatch = useDispatch();
-  const handleSignupFormSubmit = (id, password) => (e) => {
-    e.preventDefault();
-    dispatch(_registerUser({ id, password }));
-  };
+  const { pathname } = useLocation();
+  const { handleFormSubmit } = useUserFormSubmit(pathname);
 
   return (
     <>
-      <UserForm formName="회원가입" handleSubmit={handleSignupFormSubmit} />
-      <div>modal</div>
+      <UserForm formName="회원가입" handleSubmit={handleFormSubmit} />
     </>
   );
 };
 
 export default Signup;
-
-const SignupLayout = styled.div``;
