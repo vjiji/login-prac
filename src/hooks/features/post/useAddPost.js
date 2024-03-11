@@ -1,21 +1,41 @@
-import postsAPI from "apis/postsAPI";
-import { POSTS_QUERY_KEYS } from "constants/queryKeys";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import useCreatePost from "./useCreatePost";
 
-const createPost = async (post) => {
-  const { data } = await postsAPI.createPost(post);
-  return data;
-};
+const useAddPost = () => {
+  const { id } = useSelector((state) => state.user.user);
+  const navigate = useNavigate();
 
-const useAddPost = (handleOnSuccess) => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: createPost,
-    onSuccess: (data) => {
-      handleOnSuccess && handleOnSuccess(data);
-      queryClient.invalidateQueries(POSTS_QUERY_KEYS.posts);
-    },
-  });
+  const defaultValue = { title: "", content: "" };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ mode: "onSubmit", defaultValue });
+
+  const handleAddPostsSuccess = (data) => {
+    const { id } = data;
+    navigate(`/posts/${id}`, { replace: true });
+  };
+
+  const { mutate: createPost } = useCreatePost(handleAddPostsSuccess);
+
+  const handleAddPost = (value) => {
+    createPost({
+      ...value,
+      writer: id,
+    });
+  };
+
+  const titleErrorMessage = errors.title && errors.title.message;
+
+  return {
+    register,
+    handleSubmit: handleSubmit(handleAddPost),
+    titleErrorMessage,
+  };
 };
 
 export default useAddPost;

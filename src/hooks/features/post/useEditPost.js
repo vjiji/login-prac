@@ -1,21 +1,43 @@
-import postsAPI from "apis/postsAPI";
-import { POSTS_QUERY_KEYS } from "constants/queryKeys";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useNavigate, useParams } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import useUpdatePost from "./useUpdatePost";
 
-const updatePost = async (post) => {
-  const { data } = await postsAPI.updatePost(post);
-  return data;
-};
+const useEditPost = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-const useEditPost = (handleOnSuccess) => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: (post) => updatePost(post),
-    onSuccess: (resData) => {
-      handleOnSuccess && handleOnSuccess();
-      queryClient.invalidateQueries(POSTS_QUERY_KEYS.postDetail(resData.id));
-    },
-  });
+  const defaultValue = { title: "", content: "" };
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm({ mode: "onSubmit", defaultValue });
+
+  const handleGetPostSuccess = (data) => {
+    setValue("title", data.title);
+    setValue("content", data.content);
+  };
+
+  const handleEditPostsSuccess = () => {
+    navigate(`/posts/${id}`, { replace: true });
+  };
+
+  const { mutate: editPost } = useUpdatePost(handleEditPostsSuccess);
+
+  const handleSubmitValue = (value) => {
+    editPost({ id, ...value });
+  };
+
+  const titleErrorMessage = errors.title && errors.title.message;
+
+  return {
+    register,
+    titleErrorMessage: titleErrorMessage,
+    setInitialEditValue: handleGetPostSuccess,
+    handleSubmit: handleSubmit(handleSubmitValue),
+  };
 };
 
 export default useEditPost;
