@@ -1,34 +1,40 @@
 import styled from "styled-components";
 import Button from "components/common/Button";
 import { useCommentForm } from "hooks/features/comment";
+import { COLORS } from "constants/styleConstant";
 
 const CommentForm = ({ commentId, setCommentId }) => {
   const {
-    content,
     userId,
     postId,
-    handleContentChange,
+    errorMessage,
+    register,
+    onSubmit,
     createComment,
     updateComment,
-    handleOnUpdateSuccess,
+    handleUpdateCancelClick,
   } = useCommentForm(commentId, setCommentId);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const comment = { content, writer: userId };
+  const handleSubmit = (value) => {
+    const comment = { ...value, writer: userId };
     commentId
       ? updateComment({ postId, commentId, comment })
       : createComment({ postId, comment });
   };
   return (
-    <CommentFormLayout onSubmit={handleSubmit}>
-      <input value={content} onChange={handleContentChange} />
+    <CommentFormLayout onSubmit={onSubmit(handleSubmit)}>
+      <InputBox>
+        <input
+          {...register("content", { required: "댓글 내용을 작성해주세요" })}
+        />
+        {errorMessage && <p>{errorMessage}</p>}
+      </InputBox>
       {commentId && (
         <Button
           theme="secondary"
           size="small"
           className="outlined"
-          onClick={handleOnUpdateSuccess}
+          onClick={handleUpdateCancelClick}
         >
           취소
         </Button>
@@ -45,10 +51,26 @@ export default CommentForm;
 const CommentFormLayout = styled.form`
   height: 40px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
+`;
+
+const InputBox = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  min-height: 40px;
 
   input {
     width: 100%;
+  }
+
+  p {
+    width: 100%;
+    text-align: end;
+    font-size: 12px;
+    color: ${COLORS.worning};
   }
 `;
