@@ -23,6 +23,7 @@ const useLogin = () => {
   };
 
   const handleModalButtonClick = () => {
+    console.log("rewrwerwe");
     if (status === "succeeded") {
       isLoginPage ? navigate("/") : navigate("/login");
     }
@@ -36,7 +37,7 @@ const useLogin = () => {
 
   useEffect(() => {
     if (user.id) navigate("/");
-  });
+  }, []);
 
   return {
     isLoginPage,

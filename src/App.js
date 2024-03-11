@@ -9,6 +9,7 @@ import AddPost from "pages/AddPost";
 import PostDetail from "pages/PostDetail";
 import EditPost from "pages/EditPost";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import Signup from "pages/Signup";
 
 function App() {
   const queryClient = new QueryClient();
@@ -19,7 +20,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
               <Route index element={<Main />} />
               <Route path="/newpost" element={<AddPost />} />
               <Route path="/posts/:id" element={<PostDetail />} />

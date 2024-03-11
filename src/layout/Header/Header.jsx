@@ -28,7 +28,7 @@ const Header = () => {
   const handleModalClose = () => {
     dispatch(resetUserState());
     Cookies.remove("token");
-    navigate("/login");
+    // navigate("/login");  to do : 회원가입, 로그인 페이지와 연결되어 있음
   };
 
   const logout = () => {
@@ -62,7 +62,7 @@ const Header = () => {
           </Button>
         </ProfileBox>
       </HeaderLayout>
-      {status === "failed" && (
+      {/* {status === "failed" && (
         <Modal handleClose={handleModalClose}>
           <ModalContent>
             <p>{error}</p>
@@ -72,7 +72,7 @@ const Header = () => {
             </Button>
           </ModalContent>
         </Modal>
-      )}
+      )} */}
     </>
   );
 };
