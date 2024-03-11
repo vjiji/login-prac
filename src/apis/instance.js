@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 export const userInstance = axios.create({
-  baseURL: "http://3.38.191.164",
+  baseURL: process.env.REACT_APP_USER_BASE_URL,
 });
 
 userInstance.interceptors.request.use((config) => {
@@ -14,5 +14,5 @@ userInstance.interceptors.request.use((config) => {
 });
 
 export const postsInstance = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: process.env.REACT_APP_POST_BASE_URL,
 });
