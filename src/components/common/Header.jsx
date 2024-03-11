@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { LuHome } from "react-icons/lu";
 import Button from "common/Button";
-import { _getUserInfo, _loginUser } from "../../redux/modules/user";
 import { useHeader } from "hooks/common";
 
 const Header = () => {
