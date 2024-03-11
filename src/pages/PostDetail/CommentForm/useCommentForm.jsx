@@ -11,7 +11,11 @@ import { useParams } from "react-router-dom";
 const useCommentForm = (commentId, setCommentId) => {
   const { id: userId } = useSelector((state) => state.user.user);
   const { id: postId } = useParams();
-  const [content, handleContentChange, resetContent] = useInput();
+  const {
+    value: content,
+    handleValueChange: handleContentChange,
+    resetValue: resetContent,
+  } = useInput();
 
   const handleOnUpdateSuccess = () => {
     resetContent();

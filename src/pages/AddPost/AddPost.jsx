@@ -10,8 +10,10 @@ const AddPost = () => {
   const { id } = useSelector((state) => state.user.user);
   const navigate = useNavigate();
 
-  const [title, handleTitleInputChange] = useInput();
-  const [content, handleContentInputChange] = useInput();
+  const { value: title, handleValueChange: handleTitleInputChange } =
+    useInput();
+  const { value: content, handleValueChange: handleContentInputChange } =
+    useInput();
 
   const handleAddPostsSuccess = (data) => {
     const { id } = data;

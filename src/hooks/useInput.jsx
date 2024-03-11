@@ -3,7 +3,7 @@ import { useState } from "react";
 const useInput = () => {
   const [value, setValue] = useState("");
 
-  const handler = (e) => {
+  const handleValueChange = (e) => {
     setValue(e.target.value);
   };
 
@@ -11,7 +11,7 @@ const useInput = () => {
     setValue(value);
   };
 
-  return [value, handler, resetValue];
+  return { value, handleValueChange, resetValue };
 };
 
 export default useInput;

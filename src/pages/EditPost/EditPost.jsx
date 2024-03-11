@@ -7,8 +7,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const EditPost = () => {
-  const [title, handleTitleInputChange, resetTitle] = useInput();
-  const [content, handleContentInputChange, resetContent] = useInput();
+  const {
+    value: title,
+    handleValueChange: handleTitleInputChange,
+    resetValue: resetTitle,
+  } = useInput();
+  const {
+    value: content,
+    handleValueChange: handleContentInputChange,
+    resetValue: resetContent,
+  } = useInput();
   const { id } = useParams();
   const navigate = useNavigate();
 

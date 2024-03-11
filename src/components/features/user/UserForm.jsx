@@ -3,13 +3,8 @@ import Button from "common/Button";
 import { useUserForm } from "hooks/features/user";
 
 const UserForm = ({ formName, handleSubmit, children }) => {
-  const {
-    id,
-    password,
-    isLoading,
-    onChangeIdHandler,
-    onChangePassWordHandler,
-  } = useUserForm(formName);
+  const { id, password, isLoading, handleIdChange, handlePasswordChange } =
+    useUserForm(formName);
 
   return (
     <LoginLayout>
@@ -17,12 +12,7 @@ const UserForm = ({ formName, handleSubmit, children }) => {
       <FormBox onSubmit={handleSubmit(id, password)}>
         <InputBox>
           <p>아이디</p>
-          <input
-            type="text"
-            name="id"
-            value={id}
-            onChange={onChangeIdHandler}
-          />
+          <input type="text" name="id" value={id} onChange={handleIdChange} />
         </InputBox>
         <InputBox>
           <p>비밀번호</p>
@@ -30,7 +20,7 @@ const UserForm = ({ formName, handleSubmit, children }) => {
             type="password"
             name="password"
             value={password}
-            onChange={onChangePassWordHandler}
+            onChange={handlePasswordChange}
           />
         </InputBox>
         <ButtonBox>
