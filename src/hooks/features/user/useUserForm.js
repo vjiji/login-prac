@@ -1,32 +1,32 @@
-import { useInput } from "hooks/common";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import { loginUser, registerUser } from "../../../redux/modules/user";
 
-const useUserForm = (formName) => {
+const useUserForm = (currentPage) => {
   const { status } = useSelector((state) => state.user);
-  const {
-    value: id,
-    handleValueChange: handleIdChange,
-    resetValue: resetId,
-  } = useInput();
+  const dispatch = useDispatch();
 
   const {
-    value: password,
-    handleValueChange: handlePasswordChange,
-    resetValue: resetPassword,
-  } = useInput();
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ mode: "onSubmit", defaultValues: { id: "", password: "" } });
 
-  useEffect(() => {
-    resetId();
-    resetPassword();
-  }, [formName]);
+  const onSubmit = (formValue) => {
+    if (currentPage === "/signup") {
+      dispatch(registerUser(formValue));
+    }
+    if (currentPage === "/login") {
+      dispatch(loginUser(formValue));
+    }
+  };
 
   return {
-    id,
-    password,
+    formName: currentPage === "/login" ? "로그인" : "회원가입",
+    register,
+    handleSubmit: handleSubmit(onSubmit),
+    errors,
     isLoading: status === "loading",
-    handleIdChange,
-    handlePasswordChange,
   };
 };
 

@@ -1,27 +1,50 @@
 import styled from "styled-components";
 import Button from "components/common/Button";
 import { useUserForm } from "hooks/features/user";
+import { COLORS } from "constants/styleConstant";
 
-const UserForm = ({ formName, handleSubmit, children }) => {
-  const { id, password, isLoading, handleIdChange, handlePasswordChange } =
-    useUserForm(formName);
+const UserForm = ({ currentPage, children }) => {
+  const { formName, register, handleSubmit, errors, isLoading } =
+    useUserForm(currentPage);
 
   return (
     <LoginLayout>
-      <p className="user-form__name-text">{formName}</p>
-      <FormBox onSubmit={handleSubmit(id, password)}>
+      <h1 className="user-form__name-text">{formName}</h1>
+      <FormBox onSubmit={handleSubmit}>
         <InputBox>
-          <p>아이디</p>
-          <input type="text" name="id" value={id} onChange={handleIdChange} />
+          <InputWrap>
+            <h1>아이디</h1>
+            <input
+              {...register("id", {
+                required: "아이디를 입력해주세요",
+                pattern: {
+                  value: /^[가-힣a-zA-Z0-9]{4,8}$/,
+                  message: "아이디는 4-8글자를 입력해주세요",
+                },
+              })}
+            />
+          </InputWrap>
+          {errors?.id && <p>{errors.id.message}</p>}
         </InputBox>
         <InputBox>
-          <p>비밀번호</p>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handlePasswordChange}
-          />
+          <InputWrap>
+            <h1>비밀번호</h1>
+            <input
+              {...register("password", {
+                required: "비밀번호를 입력해주세요",
+                minLength: {
+                  value: 4,
+                  message: "비밀번호는 6~10글자를 사용해주세요",
+                },
+                maxLength: {
+                  value: 10,
+                  message: "비밀번호는 6~10글자를 사용해주세요",
+                },
+              })}
+              type="password"
+            />
+          </InputWrap>
+          {errors?.password && <p>{errors.password.message}</p>}
         </InputBox>
         <ButtonBox>
           <Button
@@ -42,17 +65,18 @@ const UserForm = ({ formName, handleSubmit, children }) => {
 export default UserForm;
 
 const LoginLayout = styled.div`
-  height: 280px;
+  height: 310px;
   padding: 20px;
   margin: 50px auto;
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 40px;
   width: fit-content;
   border: 2px solid #a3aabe;
   border-radius: 4px;
 
   .user-form__name-text {
+    font-size: 18px;
     font-weight: 500;
   }
 `;
@@ -65,11 +89,26 @@ const FormBox = styled.form`
 
 const InputBox = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 5px;
+  min-height: 40px;
 
   p {
-    width: 120px;
+    width: 100%;
+    text-align: end;
+    font-size: 12px;
+    color: ${COLORS.worning};
+  }
+`;
+
+const InputWrap = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  h1 {
+    width: 100px;
   }
 `;
 
