@@ -1,5 +1,5 @@
-import Modal from "./Modal";
 import ModalBackground from "./ModalBackground";
+import TwoButtonModal from "./TwoButtonModal";
+import OneButtonModal from "./OneButtonModal";
 
-export { ModalBackground };
-export default Modal;
+export { ModalBackground, TwoButtonModal, OneButtonModal };

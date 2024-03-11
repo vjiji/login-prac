@@ -1,11 +1,12 @@
 import { COLORS, FONT_SIZE } from "constants/styleConstant";
 import { useGetPostsQuery } from "hooks/postsQuery";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { formatToYYYYMMDD } from "utils";
 
 const Main = () => {
   const { data: posts, error, isLoading } = useGetPostsQuery();
+  const navigate = useNavigate();
 
   if (isLoading) {
     return <div>로딩중</div>;
@@ -26,6 +27,9 @@ const Main = () => {
           <p className="main__date-text">{formatToYYYYMMDD(createdAt)}</p>
         </PostBox>
       ))}
+      <NewPostButton onClick={() => navigate("/newpost")}>
+        글 작성
+      </NewPostButton>
     </MainContainer>
   );
 };
@@ -38,6 +42,7 @@ const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  position: relative;
 `;
 
 const PostBox = styled(Link)`
@@ -65,5 +70,24 @@ const TitleBox = styled.div`
     font-size: ${FONT_SIZE.small};
     margin-top: 40px;
     color: #aaa;
+  }
+`;
+
+const NewPostButton = styled.button`
+  background-color: #29abe2;
+  width: 60px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 150px;
+  right: 40px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #218abe;
   }
 `;

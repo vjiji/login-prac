@@ -1,8 +1,7 @@
-import React from "react";
 import Button from "common/Button";
-import { ModalBackground } from "common/Modal";
+import ModalBackground from "./ModalBackground";
 
-const CommentsDeleteModal = ({
+const TwoButtonModal = ({
   onModal,
   message,
   handleConfirmButtonClick,
@@ -27,4 +26,4 @@ const CommentsDeleteModal = ({
   );
 };
 
-export default CommentsDeleteModal;
+export default TwoButtonModal;

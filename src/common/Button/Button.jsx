@@ -13,6 +13,7 @@ const Button = ({
   type = "button",
   className,
   disabled,
+  style,
   ...styleProps
 }) => {
   const { size = "medium", theme = "primary" } = styleProps;
@@ -25,6 +26,7 @@ const Button = ({
       type={type}
       className={className}
       disabled={disabled}
+      style={{ ...style }}
     >
       {children}
     </ButtonStyles>
