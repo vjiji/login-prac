@@ -1,7 +1,13 @@
 import Button from "common/Button";
 import ModalBackground from "./ModalBackground";
 
-const OneButtonModal = ({ onModal, message, handleButtonClick }) => {
+const OneButtonModal = ({
+  onModal,
+  message,
+  theme,
+  className,
+  handleButtonClick,
+}) => {
   return (
     <ModalBackground onModal={onModal} handleModalClose={handleButtonClick}>
       <p
@@ -13,7 +19,7 @@ const OneButtonModal = ({ onModal, message, handleButtonClick }) => {
       >
         {message}
       </p>
-      <Button onClick={handleButtonClick} theme={"secondary"}>
+      <Button onClick={handleButtonClick} theme={theme} className={className}>
         확인
       </Button>
     </ModalBackground>

@@ -11,7 +11,8 @@ const Auth = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { isModalOpen, modalMessage, handleModalClose } = useUserModal();
+  const { isModalOpen, modalMessage, theme, className, handleModalClose } =
+    useUserModal();
 
   useEffect(() => {
     if (!user.id) {
@@ -24,6 +25,8 @@ const Auth = () => {
     <OneButtonModal
       onModal={isModalOpen}
       message={modalMessage}
+      theme={theme}
+      className={className}
       handleButtonClick={handleModalClose}
     />
   );

@@ -10,9 +10,10 @@ const useUserModal = () => {
 
   const isLoginPage = pathname === "/login";
   const isSignupPage = pathname === "/signup";
+  const isLoginUser = !(isLoginPage || isSignupPage);
 
   const isModalOpen = () => {
-    if (isLoginPage || isSignupPage) {
+    if (!isLoginUser) {
       return status === "failed" || status === "succeeded";
     } else {
       return status === "failed";
@@ -20,14 +21,18 @@ const useUserModal = () => {
   };
 
   const modalMessage = () => {
-    if (status === "failed") return error;
+    if (status === "failed")
+      return `${error} 
+    
+      ${isLoginUser ? "다시 로그인 해주세요!" : ""}`;
+
     if (isLoginPage) return "로그인 성공!";
     if (isSignupPage) return "회원가입 성공!";
   };
 
   const handlePageRedirect = () => {
     if (status === "failed") {
-      return !(isLoginPage || isSignupPage) && navigate("/login");
+      return isLoginUser && navigate("/login");
     } else {
       if (isLoginPage) navigate("/");
       if (isSignupPage) navigate("/login");
@@ -42,6 +47,8 @@ const useUserModal = () => {
   return {
     isModalOpen: isModalOpen(),
     modalMessage: modalMessage(),
+    theme: status === "failed" ? "worning" : "secondary",
+    className: status === "failed" && "outlined",
     handleModalClose: handleModalClose,
   };
 };
