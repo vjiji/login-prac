@@ -1,23 +1,32 @@
+import { useInput } from "hooks/common";
 import { useEffect } from "react";
-import { useInput } from "hooks";
 import { useSelector } from "react-redux";
 
 const useUserForm = (formName) => {
   const { status } = useSelector((state) => state.user);
-  const [id, onChangeIdHandler, resetIdValue] = useInput();
-  const [password, onChangePassWordHandler, resetPasswordValue] = useInput();
+  const {
+    value: id,
+    handleValueChange: handleIdChange,
+    resetValue: resetId,
+  } = useInput();
+
+  const {
+    value: password,
+    handleValueChange: handlePasswordChange,
+    resetValue: resetPassword,
+  } = useInput();
 
   useEffect(() => {
-    resetIdValue();
-    resetPasswordValue();
+    resetId();
+    resetPassword();
   }, [formName]);
 
   return {
     id,
     password,
     isLoading: status === "loading",
-    onChangeIdHandler,
-    onChangePassWordHandler,
+    handleIdChange,
+    handlePasswordChange,
   };
 };
 

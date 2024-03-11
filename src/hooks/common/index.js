@@ -1,3 +1,4 @@
 import useHeader from "./useHeader";
+import useInput from "./useInput";
 
-export { useHeader };
+export { useHeader, useInput };

@@ -3,7 +3,7 @@ import userAPI from "apis/userAPI";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 
-export const _registerUser = createAsyncThunk(
+export const registerUser = createAsyncThunk(
   "user/register",
   async (userInfo, thunkAPI) => {
     try {
@@ -16,7 +16,7 @@ export const _registerUser = createAsyncThunk(
   }
 );
 
-export const _loginUser = createAsyncThunk(
+export const loginUser = createAsyncThunk(
   "user/login",
   async (userInfo, thunkAPI) => {
     try {
@@ -32,7 +32,7 @@ export const _loginUser = createAsyncThunk(
   }
 );
 
-export const _getUserInfo = createAsyncThunk(
+export const getUserInfo = createAsyncThunk(
   "user/getUser",
   async (_, thunkAPI) => {
     try {
@@ -65,35 +65,35 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(_registerUser.pending, (state) => {
+      .addCase(registerUser.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(_registerUser.fulfilled, (state) => {
+      .addCase(registerUser.fulfilled, (state) => {
         state.status = "succeeded";
       })
-      .addCase(_registerUser.rejected, (state, action) => {
+      .addCase(registerUser.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
       })
-      .addCase(_loginUser.pending, (state) => {
+      .addCase(loginUser.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(_loginUser.fulfilled, (state, action) => {
+      .addCase(loginUser.fulfilled, (state, action) => {
         state.user = action.payload;
         state.status = "succeeded";
       })
-      .addCase(_loginUser.rejected, (state, action) => {
+      .addCase(loginUser.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
       })
-      .addCase(_getUserInfo.pending, (state) => {
+      .addCase(getUserInfo.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(_getUserInfo.fulfilled, (state, action) => {
+      .addCase(getUserInfo.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.user = action.payload;
       })
-      .addCase(_getUserInfo.rejected, (state, action) => {
+      .addCase(getUserInfo.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
       });

@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { OneButtonModal } from "common/Modal";
-import { _getUserInfo } from "../../redux/modules/user";
+import { OneButtonModal } from "./Modal";
+import { getUserInfo } from "../../redux/modules/user";
 import Cookies from "js-cookie";
 import { useUserModal } from "hooks/features/user";
 
@@ -17,7 +17,7 @@ const Auth = () => {
   useEffect(() => {
     if (!user.id) {
       const token = Cookies.get("token");
-      token ? dispatch(_getUserInfo()) : navigate("/login");
+      token ? dispatch(getUserInfo()) : navigate("/login");
     }
   }, [user]);
 

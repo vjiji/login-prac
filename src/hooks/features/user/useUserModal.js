@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { _getUserInfo, resetUserState } from "../../../redux/modules/user";
+import { resetUserState } from "../../../redux/modules/user";
 
 const useUserModal = () => {
   const { status, error } = useSelector((state) => state.user);
