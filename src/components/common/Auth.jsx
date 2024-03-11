@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { OneButtonModal } from "./Modal";
 import { getUserInfo } from "../../redux/modules/user";
 import Cookies from "js-cookie";
@@ -10,9 +10,18 @@ const Auth = () => {
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
 
   const { isModalOpen, modalMessage, theme, className, handleModalClose } =
     useUserModal();
+
+  const isMemberOnlyPage = !(pathname === "/login" || pathname === "signup");
+
+  useEffect(() => {
+    if (!isMemberOnlyPage) {
+      user.id && navigate("/");
+    }
+  }, [isMemberOnlyPage]);
 
   useEffect(() => {
     if (!user.id) {
