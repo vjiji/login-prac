@@ -1,7 +1,7 @@
-import Auth from "components/common/Auth";
-import Header from "layout/Header";
-import { Outlet } from "react-router-dom";
 import { styled } from "styled-components";
+import { Outlet } from "react-router-dom";
+import Auth from "./Auth";
+import Header from "./Header";
 
 const Layout = () => {
   return (

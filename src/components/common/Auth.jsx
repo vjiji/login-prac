@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { OneButtonModal } from "common/Modal";
 import { _getUserInfo } from "../../redux/modules/user";
 import Cookies from "js-cookie";
-import useUserModal from "hooks/features/user/useUserModal";
+import { useUserModal } from "hooks/features/user";
 
 const Auth = () => {
   const { user } = useSelector((state) => state.user);

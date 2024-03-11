@@ -1,6 +1,6 @@
-import UserForm from "components/features/user/UserForm";
-import useUserFormSubmit from "hooks/features/user/useUserFormSubmit";
 import { useLocation } from "react-router-dom";
+import { UserForm } from "components/features/user";
+import { useUserFormSubmit } from "hooks/features/user";
 
 const Signup = () => {
   const { pathname } = useLocation();

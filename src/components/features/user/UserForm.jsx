@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Button from "common/Button";
-import useUserForm from "./useUserForm";
+import { useUserForm } from "hooks/features/user";
 
 const UserForm = ({ formName, handleSubmit, children }) => {
   const {
