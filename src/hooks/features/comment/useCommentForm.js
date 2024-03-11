@@ -1,47 +1,52 @@
-import { useInput } from "hooks/common";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import {
   useAddComment,
   useEditComment,
   useGetCommentDetail,
 } from "hooks/features/comment";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 
 const useCommentForm = (commentId, setCommentId) => {
   const { id: userId } = useSelector((state) => state.user.user);
   const { id: postId } = useParams();
-  const {
-    value: content,
-    handleValueChange: handleContentChange,
-    resetValue: resetContent,
-  } = useInput();
 
-  const handleOnUpdateSuccess = () => {
-    resetContent();
-    setCommentId();
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm({ mode: "onSubmit", defaultValues: { content: "" } });
 
   const { data } = useGetCommentDetail(postId, commentId);
 
   useEffect(() => {
     if (data) {
-      resetContent(data.content);
+      setValue("content", data.content);
     }
   }, [data]);
 
-  const { mutate: createComment } = useAddComment(resetContent);
+  const { mutate: createComment } = useAddComment(() =>
+    setValue("content", "")
+  );
+
+  const handleOnUpdateSuccess = () => {
+    setValue("content", "");
+    setCommentId();
+  };
 
   const { mutate: updateComment } = useEditComment(handleOnUpdateSuccess);
 
   return {
-    content,
     userId,
     postId,
-    handleContentChange,
+    errorMessage: errors?.content && errors.content.message,
+    register,
+    onSubmit: handleSubmit,
     createComment,
     updateComment,
-    handleOnUpdateSuccess,
+    handleUpdateCancelClick: handleOnUpdateSuccess,
   };
 };
 export default useCommentForm;
