@@ -1,4 +1,4 @@
-import Button from "common/Button";
+import Button from "../Button";
 import ModalBackground from "./ModalBackground";
 
 const TwoButtonModal = ({

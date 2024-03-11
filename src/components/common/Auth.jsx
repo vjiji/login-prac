@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { OneButtonModal } from "common/Modal";
+import { OneButtonModal } from "./Modal";
 import { getUserInfo } from "../../redux/modules/user";
 import Cookies from "js-cookie";
 import { useUserModal } from "hooks/features/user";

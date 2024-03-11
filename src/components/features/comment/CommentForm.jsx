@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import Button from "common/Button";
-import useCommentForm from "./useCommentForm";
+import Button from "components/common/Button";
+import { useCommentForm } from "hooks/features/comment";
 
 const CommentForm = ({ commentId, setCommentId }) => {
   const {

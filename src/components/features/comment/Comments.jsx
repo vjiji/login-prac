@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import RenderComments from "../RenderComments";
-import CommentForm from "../CommentForm";
-import { TwoButtonModal } from "common/Modal";
-import useComments from "./useComments";
+import RenderComments from "./RenderComments";
+import CommentForm from "./CommentForm";
+import { TwoButtonModal } from "components/common/Modal";
+import { useComments } from "hooks/features/comment";
 import { COLORS } from "constants/styleConstant";
 
 const Comments = () => {

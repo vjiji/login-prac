@@ -1,10 +1,10 @@
-import Button from "common/Button";
-import { COLORS, FONT_SIZE } from "constants/styleConstant";
-import { useInput } from "hooks/common";
-import { useEditPost, useGetPostDetail } from "hooks/features/post";
-import React, { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
 import styled from "styled-components";
+import Button from "components/common/Button";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEditPost, useGetPostDetail } from "hooks/features/post";
+import { useInput } from "hooks/common";
+import { COLORS, FONT_SIZE } from "constants/styleConstant";
 
 const EditPost = () => {
   const {

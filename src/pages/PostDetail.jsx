@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import Comments from "./Comments";
-import Button from "common/Button";
-import { TwoButtonModal } from "common/Modal";
-import usePostDetail from "./usePostDetail";
+import Comments from "components/features/comment/Comments";
+import { TwoButtonModal } from "components/common/Modal";
+import Button from "components/common/Button";
+import { usePostDetail } from "hooks/features/post";
 import { formatToYYYYMMDD } from "utils";
 import { COLORS, FONT_SIZE } from "constants/styleConstant";
 

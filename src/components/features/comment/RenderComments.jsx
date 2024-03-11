@@ -1,9 +1,9 @@
 import React, { memo } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { FONT_SIZE } from "constants/styleConstant";
 import { CiEdit } from "react-icons/ci";
 import { AiOutlineDelete } from "react-icons/ai";
-import { useSelector } from "react-redux";
 
 const RenderComments = memo(
   ({ comments, setEditCommentId, setDeleteCommentId }) => {

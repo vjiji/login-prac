@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Button from "common/Button";
+import Button from "components/common/Button";
+import { useAddPost } from "hooks/features/post";
 import { useInput } from "hooks/common";
 import { COLORS, FONT_SIZE } from "constants/styleConstant";
-import { useAddPost } from "hooks/features/post";
 
 const AddPost = () => {
   const { id } = useSelector((state) => state.user.user);
