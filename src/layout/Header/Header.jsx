@@ -1,19 +1,16 @@
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 import { LuHome } from "react-icons/lu";
 import Button from "common/Button";
 import { _getUserInfo, _loginUser } from "../../redux/modules/user";
+import { useHeader } from "hooks/common";
 
 const Header = () => {
-  const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
-  const userId = user.id;
+  const { userId, logout } = useHeader();
 
-  const logout = () => {
-    Cookies.remove("token");
-    window.location.reload();
+  const handleHomeButtonClick = () => {
+    userId ? navigate("/") : navigate("/login");
   };
 
   const handleProfileButtonClick = () => {
@@ -24,13 +21,9 @@ const Header = () => {
     <>
       <HeaderLayout>
         <div className="header__home-icon-box">
-          <LuHome
-            onClick={() => (userId ? navigate("/") : navigate("/login"))}
-          />
+          <LuHome onClick={handleHomeButtonClick} />
         </div>
-        <h1 onClick={() => (userId ? navigate("/") : navigate("/login"))}>
-          MY DIARY
-        </h1>
+        <h1 onClick={handleHomeButtonClick}>MY DIARY</h1>
         <ProfileBox>
           {userId && <p>{`${userId} 님, 반가워요!`}</p>}
           <Button
@@ -64,6 +57,9 @@ const HeaderLayout = styled.div`
   }
 
   h1 {
+    padding: 20px;
+    display: flex;
+    align-items: center;
     font-weight: 600;
     cursor: pointer;
   }
