@@ -1,6 +1,6 @@
 import Button from "common/Button";
 import { COLORS, FONT_SIZE } from "constants/styleConstant";
-import { useInput } from "hooks";
+import { useInput } from "hooks/common";
 import { useEditPostQuery, useGetPostDetailQuery } from "hooks/postsQuery";
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";

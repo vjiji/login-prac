@@ -1,9 +1,9 @@
-import { useInput } from "hooks";
 import {
   useAddCommentQuery,
   useEditCommentQuery,
   useGetCommentDetailQuery,
 } from "hooks/commentsQuery";
+import { useInput } from "hooks/common";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";

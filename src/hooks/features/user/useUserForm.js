@@ -1,5 +1,5 @@
+import { useInput } from "hooks/common";
 import { useEffect } from "react";
-import { useInput } from "hooks";
 import { useSelector } from "react-redux";
 
 const useUserForm = (formName) => {
