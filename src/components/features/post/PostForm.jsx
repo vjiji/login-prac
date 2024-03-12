@@ -11,11 +11,13 @@ const PostForm = ({
 }) => {
   return (
     <FormStyle onSubmit={handleSubmit}>
-      <Title
-        {...register("title", { required: "제목을 입력해주세요" })}
-        placeholder="제목"
-      />
-      {titleErrorMessage && <p>{titleErrorMessage}</p>}
+      <TitleBox>
+        <Title
+          {...register("title", { required: "제목을 입력해주세요" })}
+          placeholder="제목"
+        />
+        {titleErrorMessage && <p>{titleErrorMessage}</p>}
+      </TitleBox>
       <Content {...register("content")} placeholder="내용" />
       <ButtonBox>
         <button className="addpost__cancel-button">돌아가기</button>
@@ -36,6 +38,18 @@ const FormStyle = styled.form`
   display: flex;
   flex-direction: column;
   gap: 10px;
+`;
+
+const TitleBox = styled.div`
+  width: 100%;
+  min-height: 70px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  p {
+    color: ${COLORS.worning};
+  }
 `;
 
 const Title = styled.input`

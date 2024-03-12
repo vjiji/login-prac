@@ -33,7 +33,7 @@ const UserForm = ({ currentPage, children }) => {
               {...register("password", {
                 required: "비밀번호를 입력해주세요",
                 minLength: {
-                  value: 4,
+                  value: 6,
                   message: "비밀번호는 6~10글자를 사용해주세요",
                 },
                 maxLength: {
